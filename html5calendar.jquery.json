@@ -1,0 +1,36 @@
+{
+  "name": "html5calendar",
+  "version": "2.0.0-beta2",
+
+  "dependencies": {
+    "jquery": "~1.10.2",
+    "moment": ">=2.5.0"
+  },
+  "optionalDependencies": {
+    "jquery-ui": "~1.10.3"
+  },
+
+  "title": "FullCalendar",
+  "description": "Full-sized drag & drop event calendar",
+  "keywords": [ "calendar", "event", "full-sized" ],
+
+  "homepage": "https://github.com/scottpledger/html5calendar",
+  "demo": "https://github.com/scottpledger/html5calendar",
+  "docs": "https://github.com/scottpledger/html5calendar",
+  "download": "https://github.com/scottpledger/html5calendar",
+  "bugs": "https://github.com/scottpledger/html5calendar/issues",
+
+  "licenses": [
+    {
+      "type": "GNU GPL2",
+      "url": "https://github.com/scottpledger/html5calendar/blob/master/LICENSE"
+    }
+  ],
+
+  "author": {
+    "name": "Scott Pledger",
+    "email": "scott@pledgecomputers.com",
+    "url": "http://scott.pledgecomputers.com/"
+  },
+  "copyright": "2014 Scott Pledger"
+}

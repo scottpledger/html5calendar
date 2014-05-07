@@ -1,0 +1,22 @@
+{
+  "scope": "none",
+  "packages": {
+    "html5calendar": {
+      "modules": [
+        "html5calendar"
+      ]
+    }
+  },
+  "modules": {
+    "html5calendar": {
+      "scripts": [
+        "src/intro.js",
+        "src/main.js",
+        "src/outro.js"
+      ],
+      "styles": [
+        "src/main.css"
+      ]
+    }
+  }
+}
