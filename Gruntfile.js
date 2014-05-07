@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 	// Bare minimum for debugging
 	grunt.registerTask('dev', [
 		'lumbar:build',
-		'generateLanguages'
+		//'generateLanguages'
 	]);
 
 
