@@ -2,63 +2,7 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<link href='../build/out/fullcalendar.css' rel='stylesheet' />
-<link href='../build/out/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='../lib/moment/moment.js'></script>
-<script src='../lib/jquery/jquery.js'></script>
-<script src='../lib/jquery-ui/ui/jquery-ui.js'></script>
-<script src='../build/out/fullcalendar.js'></script>
-<script>
-
-	$(document).ready(function() {
-
-		$('#calendar').fullCalendar({
-			defaultDate: '2014-01-12',
-			editable: true,
-			events: [
-				{
-					title: 'All Day Event',
-					start: '2014-01-01'
-				},
-				{
-					title: 'Long Event',
-					start: '2014-01-07',
-					end: '2014-01-10'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2014-01-09T16:00:00'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2014-01-16T16:00:00'
-				},
-				{
-					title: 'Meeting',
-					start: '2014-01-12T10:30:00',
-					end: '2014-01-12T12:30:00'
-				},
-				{
-					title: 'Lunch',
-					start: '2014-01-12T12:00:00'
-				},
-				{
-					title: 'Birthday Party',
-					start: '2014-01-13T07:00:00'
-				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2014-01-28'
-				}
-			]
-		});
-		
-	});
-
-</script>
+<link href='../build/out/html5calendar.css' rel='stylesheet' />
 <style>
 
 	body {
@@ -68,16 +12,41 @@
 		font-size: 14px;
 	}
 
-	#calendar {
-		width: 900px;
-		margin: 40px auto;
+	.demoCalendar {
+		line-height: 2.5rem;
+		font-size:2.5rem;
 	}
 
 </style>
 </head>
 <body>
-
-	<div id='calendar'></div>
-
+	<div class="demoCalendar"
+		 data-calendar="html5" 
+		 data-calendar-dayBegin="08:00:00" 
+		 data-calendar-dayEnd="21:00:00"
+		 data-calendar-currentDate="4/27/2014">
+		<ul data-calendar-events>
+			<li data-calendar-event-start="2014-04-29 09:00:00"
+				data-calendar-event-end="2014-04-29 10:00:00">
+				<section class="panel">
+					<small data-calendar-event-receive="timeSpan"></small>
+					<a href="#">Reading from The Silmarillion</a>
+					With renound author C.S. Lewis.
+				</section>
+			</li>
+			<li data-calendar-event-start="2014-04-30 09:00:00"
+				data-calendar-event-end="2014-04-30 15:00:00">
+				<section class="panel">
+					<small data-calendar-event-receive="timeSpan"></small>
+					<a href="#">Reading from The Hobbit</a>
+					With original author J.R.R. Tolkien.
+				</section>
+			</li>
+		</ul>
+	</div>
+	<script src='../lib/moment/moment.js'></script>
+	<script src='../lib/jquery/jquery.js'></script>
+	<script src='../lib/jquery-ui/ui/jquery-ui.js'></script>
+	<script src='../build/out/html5calendar.js'></script>
 </body>
 </html>

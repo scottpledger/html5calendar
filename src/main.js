@@ -1,4 +1,44 @@
 
+moment.formatRangeSeparator = " - ";
+
+if(!(moment.formatRangeDirectives)){
+	moment.formatRangeDirectives={
+		'YY':'M/D/YY h:mm a',
+		'YYYY':'M/D/YYYY h:mm a',
+		'M':'M/D h:mm a',
+		'D':'M/D h:mm a',
+		'!h!mm':'h a',
+		'__default__':'h:mm a'
+	};
+}
+
+if(!(moment.formatRange && typeof moment.formatRange==='function')){
+	moment.formatRange = function(_start,_end){
+		var start=moment(_start),
+		    end=moment(_end), chkFmt, fmt,i,matchIf,isMatch,matchFmt;
+		for(chkFmt in moment.formatRangeDirectives){
+			fmt=moment.formatRangeDirectives[chkFmt];
+			if(chkFmt=='__default__'){
+				return start.format(fmt)+moment.formatRangeSeparator+end.format(fmt);
+			} else {
+				chkFmt = chkFmt.split('!');
+				isMatch=true;
+				matchIf=false;
+				for(i in chkFmt){
+					matchFmt=chkFmt[i];
+					isMatch = isMatch && ((start.format(matchFmt)==end.format(matchFmt))==matchIf);
+					matchIf=!matchIf;
+				}
+				if(isMatch){
+					return start.format(fmt)+moment.formatRangeSeparator+end.format(fmt);
+				}
+			}
+		}
+	}
+}
+
+console.log(moment.formatRange('2014-04-30 09:00:00','2014-04-30 15:00:00'));
+
 $.widget("custom.html5calendar",{
 	'options': {
 		'dayBegin':'09:00:00',
@@ -119,14 +159,17 @@ $.widget("custom.html5calendar",{
 			.addClass('days-'+this.options.daysPerWeek);
 		this.eventData.children('li').each(function(i,el){
 			var $el=$(el),
-				mStart = moment($el.data('calendar-start')),
-				mEnd   = moment($el.data('calendar-end')),
+				mStart = moment($el.data('calendar-event-start')),
+				mEnd   = moment($el.data('calendar-event-end')),
 				topOffset=0;
 			
 			$el.css({
 				'top':(100*topOffset)+'%',
 				'height':(mEnd.diff(mStart,'hours',true))+'em'
 			});
+
+			$el.find('[data-calendar-event-receive="timeSpan"]')
+			    .html(moment.formatRange(mStart,mEnd));
 			
 			$el.appendTo(self._get_day_col(mStart));
 		});
