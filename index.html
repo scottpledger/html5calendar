@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Html5calendar : An HTML5 calendar jQuery plugin." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Html5calendar</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/scottpledger/html5calendar">View on GitHub</a>
+
+          <h1 id="project_title">Html5calendar</h1>
+          <h2 id="project_tagline">An HTML5 calendar jQuery plugin.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/scottpledger/html5calendar/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/scottpledger/html5calendar/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="html5calendar---full-sized-drag--drop-event-calendar" class="anchor" href="#html5calendar---full-sized-drag--drop-event-calendar"><span class="octicon octicon-link"></span></a>HTML5Calendar - Full-sized drag &amp; drop event calendar</h1>
+
+<p>This document describes how to modify or contribute to the HTML5Calendar project. If you are looking for end-developer documentation, please visit the <a href="https://github.com/scottpledger/html5calendar">project homepage</a>.</p>
+
+<h2>
+<a name="getting-set-up" class="anchor" href="#getting-set-up"><span class="octicon octicon-link"></span></a>Getting Set Up</h2>
+
+<p>You will need <a href="http://git-scm.com/">Git</a>, <a href="http://nodejs.org/">Node</a>, and NPM installed. For clarification, please view the <a href="https://github.com/jquery/jquery/blob/master/README.md#what-you-need-to-build-your-own-jquery">jQuery readme</a>, which requires a similar setup.</p>
+
+<p>Also, you will need the <a href="http://gruntjs.com/getting-started#installing-the-cli">grunt-cli</a> and <a href="http://bower.io/">bower</a> packages installed globally (<code>-g</code>) on your system:</p>
+
+<pre><code>npm install -g grunt-cli bower
+</code></pre>
+
+<p>Then, clone HTML5Calendar's git repo:</p>
+
+<pre><code>git clone git://github.com/scottpledger/html5calendar.git
+</code></pre>
+
+<p>Enter the directory and install HTML5Calendar's development dependencies:</p>
+
+<pre><code>cd html5calendar &amp;&amp; npm install
+</code></pre>
+
+<h2>
+<a name="development-workflow" class="anchor" href="#development-workflow"><span class="octicon octicon-link"></span></a>Development Workflow</h2>
+
+<p>After you make code changes, you'll want to compile the JS/CSS so that it can be previewed from the tests and demos. You can either manually rebuild each time you make a change:</p>
+
+<pre><code>grunt dev
+</code></pre>
+
+<p>Or, you can run a script that automatically rebuilds whenever you save a source file:</p>
+
+<pre><code>./build/watch
+</code></pre>
+
+<p>You can optionally add the <code>--sourceMap</code> flag to output source maps for debugging.</p>
+
+<p>When you are finished, run the following command to write the distributable files into the <code>./build/out/</code> and <code>./build/dist/</code> directories:</p>
+
+<pre><code>grunt
+</code></pre>
+
+<p>If you want to clean up the generated files, run:</p>
+
+<pre><code>grunt clean
+</code></pre>
+
+<h2>
+<a name="style-guide" class="anchor" href="#style-guide"><span class="octicon octicon-link"></span></a>Style Guide</h2>
+
+<p>Please follow the <a href="http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml">Google JavaScript Style Guide</a> as closely as possible. With the following exceptions:</p>
+
+<div class="highlight highlight-js"><pre><span class="k">if</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span> <span class="c1">// please put else, else if, and catch on a separate line</span>
+<span class="p">}</span>
+
+<span class="c1">// please write one-line array literals with a one-space padding inside</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">];</span>
+
+<span class="c1">// please write one-line object literals with a one-space padding inside</span>
+<span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span> <span class="mi">3</span> <span class="p">};</span>
+</pre></div>
+
+<p>Other exceptions:</p>
+
+<ul>
+<li>please ignore anything about Google Closure Compiler or the <code>goog</code> library</li>
+<li>please do not write JSDoc comments</li>
+</ul><p>Notes about whitespace:</p>
+
+<ul>
+<li>use <em>tabs</em> instead of spaces</li>
+<li>separate functions with <em>2</em> blank lines</li>
+<li>separate logical blocks within functions with <em>1</em> blank line</li>
+</ul><p>Run the command line tool to automatically check your style:</p>
+
+<pre><code>grunt check
+</code></pre>
+
+<h2>
+<a name="before-contributing" class="anchor" href="#before-contributing"><span class="octicon octicon-link"></span></a>Before Contributing!</h2>
+
+<p>If you have edited code (including <strong>tests</strong> and <strong>translations</strong>) and would like to submit a pull request, please make sure you have done the following:</p>
+
+<ol>
+<li><p>Conformed to the style guide (successfully run <code>grunt check</code>)</p></li>
+<li><p>Written automated tests. View the <a href="./tests/automated_test_readme.md">Automated Test README</a></p></li>
+</ol>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Html5calendar maintained by <a href="https://github.com/scottpledger">scottpledger</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
