@@ -13,36 +13,59 @@
 	}
 
 	.demoCalendar {
-		line-height: 2.5rem;
-		font-size:2.5rem;
+		
+		width:60%;
+		margin:0 auto;
+	}
+
+	.demoCalendar .ht5c-inner {
+		line-height: 32px;
+		font-size:32px;
+	}
+
+	.demoCalendar .ht5c-inner.month {
+		font-size:128px;
+		line-height:128px;
+	}
+
+	section.panel {
+		background-color:#DDD;
+		height:100%;
+		border:1px solid #CCC;
 	}
 
 </style>
 </head>
 <body>
-	<div class="demoCalendar"
-		 data-calendar="html5" 
-		 data-calendar-dayBegin="08:00:00" 
-		 data-calendar-dayEnd="21:00:00"
-		 data-calendar-currentDate="4/27/2014">
-		<ul data-calendar-events>
-			<li data-calendar-event-start="2014-04-29 09:00:00"
-				data-calendar-event-end="2014-04-29 10:00:00">
-				<section class="panel">
-					<small data-calendar-event-receive="timeSpan"></small>
-					<a href="#">Reading from The Silmarillion</a>
-					With renound author C.S. Lewis.
-				</section>
-			</li>
-			<li data-calendar-event-start="2014-04-30 09:00:00"
-				data-calendar-event-end="2014-04-30 15:00:00">
-				<section class="panel">
-					<small data-calendar-event-receive="timeSpan"></small>
-					<a href="#">Reading from The Hobbit</a>
-					With original author J.R.R. Tolkien.
-				</section>
-			</li>
-		</ul>
+	<div id="calendar">
+		<div class="demoCalendar"
+			 data-calendar="html5" 
+			 data-calendar-type="month" 
+			 data-calendar-dayBegin="00:00:00" 
+			 data-calendar-dayEnd="24:00:00"
+			 data-calendar-currentDate="5/21/2014">
+			<h3 data-calender-receive="currentDate"></h3>
+			<button data-calendar-action="prev">&lt;&lt;</button><button data-calendar-action="next">&gt;&gt;</button>
+			<ul data-calendar-events>
+				<li data-calendar-event-start="2014-05-21 09:00:00"
+					data-calendar-event-end="2014-05-21 10:00:00"
+					draggable="true">
+					<section class="panel">
+						<small data-calendar-event-receive="timeSpan"></small>
+						<a href="#">Reading from The Silmarillion</a>
+						With renound author C.S. Lewis.
+					</section>
+				</li>
+				<li data-calendar-event-start="2014-05-22 12:00:00"
+					data-calendar-event-end="2014-05-23 15:00:00">
+					<section class="panel">
+						<small data-calendar-event-receive="timeSpan"></small>
+						<a href="#">Reading from The Hobbit</a>
+						With original author J.R.R. Tolkien.
+					</section>
+				</li>
+			</ul>
+		</div>
 	</div>
 	<script src='../lib/moment/moment.js'></script>
 	<script src='../lib/jquery/jquery.js'></script>

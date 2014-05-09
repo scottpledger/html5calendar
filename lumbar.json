@@ -11,11 +11,15 @@
     "html5calendar": {
       "scripts": [
         "src/intro.js",
+        "src/moment-range.js",
         "src/main.js",
         "src/outro.js"
       ],
       "styles": [
-        "src/main.css"
+        "src/main.css",
+        "src/main-agenda.css",
+        "src/main-basic.css",
+        "src/main-month.css"
       ]
     }
   }

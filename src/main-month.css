@@ -1,0 +1,93 @@
+.html5calendar .ht5c-inner.month {
+	margin-top:0;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-hours {
+	display:none;
+}
+.html5calendar .ht5c-inner.month .ht5c-view {
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	overflow: hidden;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-weeks {
+	position:absolute;
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	transition: top 0.5s;
+	-webkit-transition: top 0.5s;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-week {
+	position:absolute;
+	left:0;
+	top:0;
+	height:1em;
+	width:100%;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-days {
+	width:100%;
+	height:100%;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-day {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	float: left;
+	height: 100%;
+	border: 1px solid #CCC;
+	border-left: 0px;
+	padding: 0 3px;
+	overflow:hidden;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-day:first-of-type {
+	border-left:1px solid #CCC;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-day > time {
+	font-size: 0.8rem;
+	line-height: 1rem;
+	text-align: center;
+	font-weight: 700;
+	display: block;
+}
+
+.html5calendar .ht5c-inner.month.days-1 .ht5c-day {
+	width:100%;
+}
+
+.html5calendar .ht5c-inner.month.days-2 .ht5c-day {
+	width:50%;
+}
+
+.html5calendar .ht5c-inner.month.days-3 .ht5c-day {
+	width:33.3333%;
+}
+
+.html5calendar .ht5c-inner.month.days-4 .ht5c-day {
+	width:25%;
+}
+
+.html5calendar .ht5c-inner.month.days-5 .ht5c-day {
+	width:20%;
+}
+
+.html5calendar .ht5c-inner.month.days-6 .ht5c-day {
+	width:16.6666%;
+}
+
+.html5calendar .ht5c-inner.month.days-7 .ht5c-day,
+.html5calendar .ht5c-inner.month .ht5c-day {
+	width:14.2857142875%;
+}
+
+
