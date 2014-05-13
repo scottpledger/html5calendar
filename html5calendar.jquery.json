@@ -15,8 +15,8 @@
   "keywords": [ "calendar", "event", "full-sized" ],
 
   "homepage": "https://github.com/scottpledger/html5calendar",
-  "demo": "https://github.com/scottpledger/html5calendar",
-  "docs": "https://github.com/scottpledger/html5calendar",
+  "demo": "http://scottpledger.github.io/html5calendar/demos/",
+  "docs": "http://scottpledger.github.io/html5calendar/docs/",
   "download": "https://github.com/scottpledger/html5calendar",
   "bugs": "https://github.com/scottpledger/html5calendar/issues",
 
