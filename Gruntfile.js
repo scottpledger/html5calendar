@@ -102,38 +102,12 @@ module.exports = function(grunt) {
 		}
 	}
 
-
-
-	/* Languages
+	/* Website
 	----------------------------------------------------------------------------------------------------*/
 
-	grunt.registerTask('languages', [
-		'jscs:srcLanguages',
-		'jshint:srcLanguages',
-		'clean:languages',
-		'generateLanguages',
-		'uglify:languages'
-	]);
-
-	config.generateLanguages = {
-		moment: 'lib/moment/lang/',
-		datepicker: 'lib/jquery-ui/ui/i18n/',
-		fullCalendar: 'lang/',
-		dest: 'build/out/lang/'
-	};
-
-	config.uglify.languages = {
-		expand: true,
-		cwd: 'build/out/lang/',
-		src: '*.js',
-		dest: 'build/out/lang-min/'
-	};
-
-	config.clean.languages = [
-		'build/out/lang/*',
-		'build/out/lang-min/*'
-	];
-
+	grunt.registerTask('website', 'Build the HTML5Calendar website', [
+		'groc:javascript',
+	])
 
 
 	/* Archive
@@ -142,14 +116,11 @@ module.exports = function(grunt) {
 	grunt.registerTask('archive', 'Create a distributable ZIP archive', [
 		'clean:archive',
 		'modules',
-		'languages',
 		'copy:archiveModules',
-		'copy:archiveLanguages',
 		'copy:archiveMoment',
 		'copy:archiveJQuery',
 		'concat:archiveJQueryUI',
 		'copy:archiveDemos',
-		'copy:archiveDemoTheme',
 		'copy:archiveMisc',
 		'compress:archive'
 	]);
@@ -158,20 +129,15 @@ module.exports = function(grunt) {
 	config.copy.archiveModules = {
 		expand: true,
 		cwd: 'build/out/',
-		src: [ '*.js', '*.css' ],
+		src: [ '**.js', '*.css' ],
 		dest: 'build/archive/html5calendar/'
 	};
 
-	config.copy.archiveLanguages = {
-		expand: true,
-		cwd: 'build/out/lang-min/',
-		src: '*.js',
-		dest: 'build/archive/html5calendar/lang/'
-	};
-
 	config.copy.archiveMoment = {
-		src: 'lib/moment/min/moment.min.js',
-		dest: 'build/archive/lib/moment.min.js'
+		files: {
+			'lib/moment/min/moment.min.js': 'build/archive/lib/moment.min.js',
+			'lib/moment-range/lib/moment-range.js': 'build/archive/lib/moment-range.js'
+		}
 	};
 
 	config.copy.archiveJQuery = {
@@ -202,14 +168,6 @@ module.exports = function(grunt) {
 		},
 		src: 'demos/**',
 		dest: 'build/archive/'
-	};
-
-	// copy the "cupertino" jquery-ui theme into the demo directory (for demos/theme.html)
-	config.copy.archiveDemoTheme = {
-		expand: true,
-		cwd: 'lib/jquery-ui/themes/cupertino/',
-		src: [ 'jquery-ui.min.css', 'images/*' ],
-		dest: 'build/archive/lib/cupertino/'
 	};
 
 	// in demo HTML, rewrites paths to work in the archive
@@ -330,7 +288,7 @@ module.exports = function(grunt) {
 		'jscs',
 		'jshint:srcModules', // so we can fix most quality errors in their original files
 		'lumbar:build',
-		'jshint' // will run srcModules again but oh well
+		//'jshint' // will run srcModules again but oh well
 	]);
 
 	// configs located elsewhere

@@ -35,7 +35,7 @@ module.exports = {
 			unused: 'vars', // functions/variables (excluding function arguments) that are never used
 			latedef: 'nofunc' // variables that are referenced before their `var` statement
 		},
-		src: 'build/out/{html5calendar,gcal}.js'
+		src: 'build/out/{html5calendar}.js'
 	},
 
 	srcLanguages: 'lang/*.js',

@@ -5,6 +5,7 @@ build/cdnjs
 dist
 
 docs/*
+web/*
 
 # npm modules
 node_modules

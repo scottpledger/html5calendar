@@ -1,6 +1,6 @@
 {
   "name": "html5calendar",
-  "version": "2.0.0-beta2",
+  "version": "0.0.1-alpha1",
 
   "dependencies": {
     "jquery": "~1.10.2",
@@ -10,7 +10,7 @@
     "jquery-ui": "~1.10.3"
   },
 
-  "title": "FullCalendar",
+  "title": "HTML5Calendar",
   "description": "Full-sized drag & drop event calendar",
   "keywords": [ "calendar", "event", "full-sized" ],
 
