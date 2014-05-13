@@ -239,9 +239,10 @@ DateRange = (function() {
    * @returns {Array}
    */
   DateRange.prototype.chunk=function(duration, onBoundary) {
-    if(duration=='intoDays'){
-      duration=moment.duration(1,'day');
-      onBoundary='day';
+    if(duration.slice(0,4)=='into'){
+      onBoundary=moment.normalizeUnits(duration.slice(4));
+      duration=moment.duration(1,onBoundary);
+      
     }
 
     var tBegin=moment(this.start),
@@ -278,7 +279,7 @@ DateRange = (function() {
     'YYYY':'M/D/YYYY h:mm a',
     'M':'M/D h:mm a',
     'D':'M/D h:mm a',
-    '!h!mm':'h a',
+    'h!mm':'h a',
     '__default__':'h:mm a'
   };
 

@@ -34,10 +34,15 @@ and open the template in the editor.
 }
 
 .html5calendar .ht5c-event > *,
+.html5calendar .ht5c-event-placeholder > *,
 .html5calendar .ht5c-hour > *
  {
 	font-size:1rem;
 	line-height:1rem;
+}
+
+.html5calendar .ht5c-event-placeholder {
+	opacity:0.5;
 }
 
 .html5calendar .ht5c-week {
@@ -78,4 +83,19 @@ and open the template in the editor.
 	font-size: 0.6rem;
 	width: 2.8rem;
 	text-align: right;
+}
+
+.html5calendar.month-1  .ht5c-day:not(.month-1) > *,
+.html5calendar.month-2  .ht5c-day:not(.month-2) > *,
+.html5calendar.month-3  .ht5c-day:not(.month-3) > *,
+.html5calendar.month-4  .ht5c-day:not(.month-4) > *,
+.html5calendar.month-5  .ht5c-day:not(.month-5) > *,
+.html5calendar.month-6  .ht5c-day:not(.month-6) > *,
+.html5calendar.month-7  .ht5c-day:not(.month-7) > *,
+.html5calendar.month-8  .ht5c-day:not(.month-8) > *,
+.html5calendar.month-9  .ht5c-day:not(.month-9) > *,
+.html5calendar.month-10 .ht5c-day:not(.month-10) > *,
+.html5calendar.month-11 .ht5c-day:not(.month-11) > *,
+.html5calendar.month-12 .ht5c-day:not(.month-12) > * {
+	opacity:0.5;
 }

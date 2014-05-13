@@ -40,13 +40,26 @@
 	<div id="calendar">
 		<div class="demoCalendar"
 			 data-calendar="html5" 
-			 data-calendar-type="month" 
+			 data-calendar-type="agenda" 
 			 data-calendar-dayBegin="00:00:00" 
 			 data-calendar-dayEnd="24:00:00"
 			 data-calendar-currentDate="5/21/2014">
 			<h3 data-calender-receive="currentDate"></h3>
-			<button data-calendar-action="prev">&lt;&lt;</button><button data-calendar-action="next">&gt;&gt;</button>
+			<button data-calendar-action="prev">&lt;&lt;</button><button data-calendar-action="next">&gt;&gt;</button><button data-calendar-option="type" data-calendar-optionValue="agenda">Agenda</button><button data-calendar-option="type" data-calendar-optionValue="month">Month</button>
 			<ul data-calendar-events>
+				<li data-calendar-event-start="2014-04-29 09:00:00"
+					data-calendar-event-end="2014-04-29 10:00:00"
+					draggable="true">
+					<section class="panel">
+						<details>
+							<summary>
+							<small data-calendar-event-receive="timeSpan"></small>
+							</summary>
+							Just another event.
+						</details>
+						
+					</section>
+				</li>
 				<li data-calendar-event-start="2014-05-21 09:00:00"
 					data-calendar-event-end="2014-05-21 10:00:00"
 					draggable="true">
@@ -57,7 +70,8 @@
 					</section>
 				</li>
 				<li data-calendar-event-start="2014-05-22 12:00:00"
-					data-calendar-event-end="2014-05-23 15:00:00">
+					data-calendar-event-end="2014-05-23 15:00:00"
+					draggable="true" resizable="true">
 					<section class="panel">
 						<small data-calendar-event-receive="timeSpan"></small>
 						<a href="#">Reading from The Hobbit</a>

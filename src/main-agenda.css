@@ -63,10 +63,21 @@
 	height:100%;
 }
 
-.html5calendar .ht5c-inner.agenda .ht5c-event {
+.html5calendar .ht5c-inner.agenda .ht5c-event,
+.html5calendar .ht5c-inner.agenda .ht5c-event-placeholder {
 	height:100%;
 	position:absolute;
 	overflow: hidden;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-event .ht5c-event-resizeHandle {
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	height:4px;
+	border:0;
+	cursor: ns-resize;
 }
 
 .html5calendar .ht5c-inner.agenda.days-1 .ht5c-day {
