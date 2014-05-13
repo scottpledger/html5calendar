@@ -11,6 +11,7 @@
     "html5calendar": {
       "scripts": [
         "src/intro.js",
+        "src/lib/event.js",
         "src/main.js",
         "src/outro.js"
       ],

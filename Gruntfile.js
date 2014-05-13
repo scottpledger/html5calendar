@@ -95,11 +95,10 @@ module.exports = function(grunt) {
 
 	config.groc = {
 		javascript:[
-			'src/main.js','src/moment-range.js'
+			'src/main.js','src/lib/**.js','src/main-*.css','src/main.css','readme.md'
 		],
 		options:{
-			'out':'docs/',
-			'index':'readme.md'
+			'out':'docs/'
 		}
 	}
 

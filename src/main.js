@@ -1,228 +1,75 @@
-var HT5CEvent;
-HT5CEvent = (function(undefined){
-	function HT5CEvent(el){
-		var start, end;
-
-		for(var k in HT5CEvent.defaults){
-			this[k] = HT5CEvent.defaults[k];
-		}
-
-		if($.isPlainObject(el)){
-			for(var k in el){
-				if(k=='start'){
-					start = el[k];
-				} else if(k=='end'){
-					end = el[k];
-				} else {
-					this[k]=el[k];
-				}
-			}
-			this.element = $('<li></li>');
-		} else if ($.type($(el)[0])=='object') {
-			var $el = $(el),
-			    attrs = $el[0].attributes,
-			    attr,attrName;
-			if($el.data('event')&&$el.data('event')!=null){
-				return $el.data('event');
-			}
-
-			for(var k=0;k<attrs.length;k++){
-				attr = attrs[k];
-				if(attr.name.slice(0,HT5CEvent.attr_prefix.length)==HT5CEvent.attr_prefix){
-					attrName = attr.name.slice(HT5CEvent.attr_prefix.length);
-					if(attrName=='start'){
-						start = attr.value;
-					} else if(attrName=='end'){
-						end = attr.value;
-					} else {
-						this[attr.name.slice(HT5CEvent.attr_prefix.length)] = attr.value;
-					}
-					
-				}
-			}
-
-			this.element = $el;
-
-			if($el.attr('draggable')){
-				$el.attr('draggable',false);
-				this.movable = true;
-			} else {
-				this.movable = false;
-			}
-
-			if($el.attr('resizable')){
-				$el.attr('resizable',false);
-				this.resizable = true;
-			} else {
-				this.resizable = false;
-			}
-		} else {
-			throw new Error('Invalid Event!');
-		}
-
-		start = moment(start);
-		end = moment(end);
-
-		if(start.isValid()){
-			this.start = start;
-		} else {
-			throw new Error('Invalid Event!');
-		}
-
-		if (end.isValid()) {
-			this.end = end;
-			if(this.end.isBefore(this.start)){
-				throw new Error('Invalid Event!');
-			}
-			
-		}
-
-		if (this.allDay){
-			this.start.startOf('day');
-			this.end = moment(start).endOf('day');
-		}
-
-		this.range = moment.range(start,end);
-
-		if(this.html){
-			this.element.html(this.html);
-		}
-
-		if(this.resizable){
-			this.element.append('<hr class="ht5c-event-resizeHandle">');
-		}
-
-		this.element.addClass('ht5c-event');
-		this.element.data('event',this);
-
-		this._segments = [];
-	}
-
-	HT5CEvent.attr_prefix = 'data-calendar-event-';
-
-	HT5CEvent.prototype._rmSegments = function(){
-		$(this._segments).each(function(i,el){
-			$(el).remove();
-		});
-		this._segments = [];
-	};
-
-	HT5CEvent.prototype._getSegment = function(){
-		var $nel = this.element.clone();
-		$nel.data('event',this);
-		this._segments.push($nel);
-		return $nel;
-	}
-
-	HT5CEvent.prototype.makeSegments = function(on,tMin,tMax){
-		this._rmSegments();
-		var chunks = this.range.chunk('into'+on),
-		    i,nRange,$nel,topOffset,mStart,mEnd;
-		this.element.find('[data-calendar-event-receive="timeSpan"]').html(this.range.format());
-		for(i in chunks){
-			nRange = chunks[i];
-			mStart = nRange.start;
-			mEnd = nRange.end;
-			$nel = this._getSegment();
-
-			topOffset = mStart.diff(moment(mStart).startOf('day'),'hours',true);
-
-			$nel.data('range',nRange);
-
-			$nel.data('dimensions',{
-				'top':topOffset,
-				'height':mEnd.diff(mStart,'hours',true)
-			});
-		}
-
-		return $(this._segments);
-
-	};
-
-	HT5CEvent.prototype.redraw = function(){
-		this.element.find('[data-calendar-event-receive="timeSpan"]').html(this.range.format());
-		$(this._segments).find('[data-calendar-event-receive="timeSpan"]').html(this.range.format());
-	}
-
-	HT5CEvent.prototype.clone = function(){
-		var $nel = this.element.clone(),nev,i;
-		$nel.attr('data-calendar-event-start',this.start.format());
-		$nel.attr('data-calendar-event-end',this.end.format());
-		$nel.attr('data-calendar-event-allDay',this.allDay);
-		nev = new HT5CEvent($nel);
-		for(i in this._segments){
-			nev._segments.push(this._segments[i].clone());
-		}
-		
-		return nev;
-	};
-
-	HT5CEvent.prototype.show = function(){
-		$(this._segments).each(function(i,el){$(el).css('display','block')});
-	};
-
-	HT5CEvent.prototype.hide = function(){
-		$(this._segments).each(function(i,el){$(el).css('display','none')});
-	};
-
-	HT5CEvent.prototype.addClass = function(){
-		$.fn.addClass.apply(this.element,Array.prototype.slice.apply(arguments,[0]));
-		$.fn.addClass.apply($(this._segments),Array.prototype.slice.apply(arguments,[0]));
-		return this;
-	};
-
-	HT5CEvent.prototype.removeClass = function(){
-		$.fn.removeClass.apply(this.element,Array.prototype.slice.apply(arguments,[0]));
-		$.fn.removeClass.apply($(this._segments),Array.prototype.slice.apply(arguments,[0]));
-		return this;
-	};
-
-	HT5CEvent.prototype.add = function(){
-		this.start.add(arguments[0],arguments[1]);
-		this.end.add(arguments[0],arguments[1]);
-		this.range = moment.range(this.start,this.end);
-	};
-
-	HT5CEvent.prototype.update = function(){
-		this.range = moment.range(this.start,this.end);
-	};
-
-	HT5CEvent.prototype.remove = function(){
-		this.element.remove();
-		$(this._segments).each(function(i,el){$(el).remove();});
-	};
-
-
-
-
-	HT5CEvent.defaults = {
-		'allDay':false
-	};
-
-	return HT5CEvent;
-})();
-
+/**
+ * The HTML5Calendar widget, using the [jQuery UI Widget Factory](http://api.jqueryui.com/jQuery.widget/)
+ * @namespace jQuery.fn.html5calendar
+ */
 $.widget("custom.html5calendar",$.ui.mouse,{
 	'options': {
+		/**
+		 * Earliest hour to show in the Agenda view mode.
+		 * @property {moment.duration|String} dayBegin
+		 */
 		'dayBegin':'09:00:00',
+		/**
+		 * Latest hour to show in the Agenda view mode.
+		 * @property {moment.duration|String} dayEnd
+		 */
 		'dayEnd':'21:00:00',
+		/**
+		 * Specifies the duration of each hour slot.
+		 * @property {moment.duration|String} slotDuration
+		 */
 		'slotDuration':'00:30:00',
-		'currentDate':'today',
+		/**
+		 * Specifies the "current" date.
+		 * @property {Date|moment} now
+		 */
+		'now':'today',
+		/**
+		 * Specifies currently visible date.
+		 * @property {Date|moment} defaultDate
+		 */
+		'defaultDate':'today',
+		/**
+		 * Specifies number of days to be shown for each week.
+		 * Must be a number 1-7.
+		 * @property {Number} daysPerWeek
+		 */
 		'daysPerWeek':7,
-		'firstDayOfWeek':0, //Sunday
+		/**
+		 * Specifies the first day to display for each week.
+		 * This should be a number 0-6, 0 being Sunday and 6 being Saturday.
+		 * @property {Number} firstDay
+		 */
+		'firstDay':0,
+		/**
+		 * Specifies format for each hour label. HTML5Calendar will not
+		 * display duplicate consecutive row labels.
+		 * @property {String} rowLabelFormat
+		 */
 		'rowLabelFormat':'h a',
+		/**
+		 * Specifies format for each day label.
+		 * @property {String} dayLabelFormat
+		 */
 		'dayLabelFormat':'M/D',
+		/**
+		 * Specifies format for displaying the month.
+		 * @property {String} monthLabel
+		 */
 		'monthLabel': 'MMM YYYY',
-		'type':'agenda',
-		'eventRangeFormat':undefined
+		/**
+		 * Specifies view.  Can be either "agenda" or "month".
+		 * @property {String} view
+		 */
+		'view':'month'
 	},
 	_create: function() {
 		var self=this;
 		this.element.addClass('html5calendar');
 		this._get_opts_from_element();
 		this.weekOffset=0;
-		this.today = moment();
-		this.currentDate = (this.options.currentDate=='today'?moment():moment(this.options.currentDate));
+		this.today = this._momentize_option(this.options.now);
+		this.defaultDate = this._momentize_option(this.options.defaultDate);
 		this.innerElement = this.element.find('.ht5c-inner');
 		if(this.innerElement.length===0){
 			this.innerElement = $('<div class="ht5c-inner"></div>');
@@ -252,13 +99,16 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 		});
 		this._parse_events();
 		this.innerElement.removeClass('agenda basic month')
-			.addClass(this.options.type);
+			.addClass(this.options.view);
 		this.element.removeClass('ht5c-agenda ht5c-basic ht5c-month')
-				.addClass('ht5c-'+this.options.type);
+				.addClass('ht5c-'+this.options.view);
 		
 		this.relayout();
 
 		this._mouseInit();
+	},
+	_momentize_option:function(val){
+		return val=='today'?moment():moment(val);
 	},
 	_get_opts_from_element:function(){
 		var val;
@@ -303,7 +153,7 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 				'top': top+'em', 'height':height+'em'
 			};
 			$el.data('css',cssData);
-			$el.css(self.options.type=='agenda'?cssData:{
+			$el.css(self.options.view=='agenda'?cssData:{
 				'top':'0em','height':'auto'
 			});
 		});
@@ -411,7 +261,7 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 	},
 	_layout_days:function(){
 		var self=this,
-			tBegin = moment(this.currentDate);
+			tBegin = moment(this.defaultDate);
 
 		var t0 = moment(tBegin),
 		    dt = moment.duration(1,"day"),
@@ -424,23 +274,23 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 		}
 	},
 	_layout_weeks:function(){
-		this.currentDate.startOf('week').add(this.options.firstDayOfWeek,'day');
+		this.defaultDate.startOf('week').add(this.options.firstDay,'day');
 		this._layout_days();
 		this.innerElement.css('height',this.innerElement.data('hours-height')+'em');
 
 	},
 	_layout_months:function(){
-		var mOrig = moment(this.currentDate),
-		    mLast = moment(this.currentDate).endOf('month'),n=1;
-		this.currentDate.startOf('month');
+		var mOrig = moment(this.defaultDate),
+		    mLast = moment(this.defaultDate).endOf('month'),n=1;
+		this.defaultDate.startOf('month');
 		
-		while(this.currentDate.isBefore(mLast)){
+		while(this.defaultDate.isBefore(mLast)){
 			this._layout_weeks();
-			this.currentDate.add(1,'week');
+			this.defaultDate.add(1,'week');
 			n++;
 		}
 
-		this.currentDate = mOrig;
+		this.defaultDate = mOrig;
 		this.innerElement.css('height',(n-1)+'em');
 	},
 	_update_weeks:function(){
@@ -448,7 +298,7 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 		for(var k in this.weeks){
 			week_li=this.weeks[k].parent();
 
-			week_li.css(this.options.type=='agenda'?{
+			week_li.css(this.options.view=='agenda'?{
 				'left':(week_li.data('diff')*100)+"%",'top':0
 			}:{
 				'top':(week_li.data('diff'))+'em','left':0
@@ -460,17 +310,17 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 		this.innerElement.find('li.ht5c-event').each(function(i,el){
 			var $el=$(el);
 			
-			$el.css(self.options.type=='agenda'?$el.data('css'):{
+			$el.css(self.options.view=='agenda'?$el.data('css'):{
 				'top':'0em','height':'auto'
 			})
 		});
 	},
 	_update_view:function(){
-		var tBegin = moment(this.currentDate);
+		var tBegin = moment(this.defaultDate);
 		this._update_events();
 		
-		if(this.options.type=='agenda'){
-			this.element.find('[data-calender-receive="currentDate"]')
+		if(this.options.view=='agenda'){
+			this.element.find('[data-calender-receive="defaultDate"]')
 			.html(moment.range(tBegin,moment(tBegin).add(this.options.daysPerWeek,'days'))
 				.format({
 					'__default__':['MMM D','MMM D YYYY']
@@ -480,10 +330,10 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 			this._update_weeks();
 			this.weeks_list.css({
 				'top':0,
-				'left': (moment(this.today).startOf('week').diff(moment(this.currentDate).startOf('week'), 'days')*this.colWidth)+"%"
+				'left': (moment(this.today).startOf('week').diff(moment(this.defaultDate).startOf('week'), 'days')*this.colWidth)+"%"
 			});
-		} else if(this.options.type=='basic'){
-			this.element.find('[data-calender-receive="currentDate"]')
+		} else if(this.options.view=='basic'){
+			this.element.find('[data-calender-receive="defaultDate"]')
 			.html(moment.range(tBegin,moment(tBegin).add(this.options.daysPerWeek,'days'))
 				.format({
 					'__default__':['MMM D','MMM D YYYY']
@@ -493,29 +343,29 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 			this._update_weeks();
 			this.weeks_list.css({
 				'top':0,
-				'left': (moment(this.today).startOf('week').diff(moment(this.currentDate).startOf('week'), 'days')*this.colWidth)+"%"
+				'left': (moment(this.today).startOf('week').diff(moment(this.defaultDate).startOf('week'), 'days')*this.colWidth)+"%"
 			});
-		} else if(this.options.type=='month'){
-			this.element.find('[data-calender-receive="currentDate"]')
+		} else if(this.options.view=='month'){
+			this.element.find('[data-calender-receive="defaultDate"]')
 			.html(tBegin.format(this.options.monthLabel));
 			this.element.removeClass('month-1 month-2 month-3 month-4 month-5 month-6 month-7 month-8 month-9 month-10 month-11 month-12')
-				.addClass('month-'+this.currentDate.format('M'));
+				.addClass('month-'+this.defaultDate.format('M'));
 			this._layout_months();
 			this._update_weeks();
 			this.weeks_list.css({
 				'left':0,
-				'top': (moment(this.today).startOf('week').diff(moment(this.currentDate).startOf('month').startOf('week'), 'weeks'))+"em"
+				'top': (moment(this.today).startOf('week').diff(moment(this.defaultDate).startOf('month').startOf('week'), 'weeks'))+"em"
 			});
 		}
 	},
 	_setOption: function(key,value){
 		this._super( key, value );
 
-		if(key=='type' || key=='currentDate'){
+		if(key=='view' || key=='defaultDate'){
 			this.innerElement.removeClass('agenda basic month')
-				.addClass(this.options.type);
+				.addClass(this.options.view);
 			this.element.removeClass('ht5c-agenda ht5c-basic ht5c-month')
-				.addClass('ht5c-'+this.options.type);
+				.addClass('ht5c-'+this.options.view);
 			this._update_view();
 		}
 	},
@@ -571,7 +421,7 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 		this._clone.addClass('ht5c-event-placeholder ht5c-event-clone').removeClass('ht5c-event');
 
 		this._place_event(this._clone);
-		this._gridSize = this.options.type=='agenda'?
+		this._gridSize = this.options.view=='agenda'?
 		                   [this.view_container.width()/this.options.daysPerWeek,this.hourHeight]:
 		                   [this.view_container.width()/this.options.daysPerWeek,this.dayHeight];
 		this._initX    = event.clientX;
@@ -584,7 +434,7 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 		    dY  = event.clientY-this._initY,
 		    pX  = Math.round(dX/this._gridSize[0]),
 		    pY  = Math.round(dY/this._gridSize[1]);
-		return this.options.type=='agenda'?((pX*24) + (pY*this.hourSize)):((pX*24) + (pY*168));
+		return this.options.view=='agenda'?((pX*24) + (pY*this.hourSize)):((pX*24) + (pY*168));
 	},
 	_mouseDrag:function(event){
 		var delta = this._mouseGetChange(event);
@@ -620,7 +470,6 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 		this._clone = null;
 		this._event = null;
 		this._mouseAction = false;
-
 	},
 	relayout: function() {
 		this._layout_hour_rows();
@@ -628,28 +477,27 @@ $.widget("custom.html5calendar",$.ui.mouse,{
 	},
 	next:function(duration){
 		var args = Array.prototype.slice.apply(arguments,[0]),
-			defDur = this.options.type=='month'?'months':'weeks';
+			defDur = this.options.view=='month'?'months':'weeks';
 
 		if(args.length==0){
-			this.currentDate.add(1, defDur);
+			this.defaultDate.add(1, defDur);
 		} else {
-			this.currentDate.add.apply(this.currentDate,args);
+			this.defaultDate.add.apply(this.defaultDate,args);
 		}
 		this._update_view();
 	},
 	prev:function(duration){
 		var args = Array.prototype.slice.apply(arguments,[0]),
-			defDur = this.options.type=='month'?'months':'weeks';
+			defDur = this.options.view=='month'?'months':'weeks';
 		if(args.length==0){
-			this.currentDate.subtract(1, defDur);
+			this.defaultDate.subtract(1, defDur);
 		} else {
-			this.currentDate.subtract.apply(this.currentDate,args);
+			this.defaultDate.subtract.apply(this.defaultDate,args);
 		}
 		this._update_view();
 	}
 });
+
+
 $('[data-calendar="html5"]').html5calendar();
-setTimeout(function(){
-//	$('[data-calendar="html5"]').html5calendar('next',1,'year');
-},500)
 
