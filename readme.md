@@ -90,7 +90,7 @@ If you have edited code (including **tests** and **translations**) and would lik
 
 
 
-[fc-homepage]: https://github.com/scottpledger/html5calendar
+[fc-homepage]: http://scottpledger.github.io/html5calendar/
 [git]: http://git-scm.com/
 [node]: http://nodejs.org/
 [grunt-cli]: http://gruntjs.com/getting-started#installing-the-cli
