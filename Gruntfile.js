@@ -12,6 +12,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-jscs-checker');
+	grunt.loadNpmTasks('grunt-groc');
 	grunt.loadNpmTasks('lumbar');
 
 	// Parse config files
@@ -84,6 +85,23 @@ module.exports = function(grunt) {
 	};
 
 	config.clean.modules = 'build/out/**';
+
+	/* Documentation
+	----------------------------------------------------------------------------------------------------*/
+
+	grunt.registerTask('docs', 'Build the HTML5Calendar documentation', [
+		'groc:javascript',
+	]);
+
+	config.groc = {
+		javascript:[
+			'src/main.js','src/moment-range.js'
+		],
+		options:{
+			'out':'docs/',
+			'index':'readme.md'
+		}
+	}
 
 
 

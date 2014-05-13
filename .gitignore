@@ -4,6 +4,8 @@ build/bower
 build/cdnjs
 dist
 
+docs/*
+
 # npm modules
 node_modules
 
