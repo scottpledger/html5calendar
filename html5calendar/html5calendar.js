@@ -293,7 +293,7 @@ HT5CEvent = (function(undefined) {
 })();
 ;;
 /**
- * @ngdoc function
+ * @ngdoc directive
  * @name jQuery.html5calendar
  * 
  * The HTML5Calendar widget, using the [jQuery UI Widget Factory](http: //api.jqueryui.com/jQuery.widget/)
