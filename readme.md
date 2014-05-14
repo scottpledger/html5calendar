@@ -2,7 +2,12 @@
 HTML5Calendar - Full-sized drag & drop event calendar
 ====================================================
 
-This document describes how to modify or contribute to the HTML5Calendar project. If you are looking for end-developer documentation, please visit the [project homepage][fc-homepage].
+This document describes how to modify or contribute to the HTML5Calendar project. 
+
+Quick Links
+-----------
+ - [Developer documentation][ht5c-docs]
+ - [Demos][ht5c-demos]
 
 
 Getting Set Up
@@ -90,7 +95,9 @@ If you have edited code (including **tests** and **translations**) and would lik
 
 
 
-[fc-homepage]: http://scottpledger.github.io/html5calendar/
+[ht5c-homepage]: http://scottpledger.github.io/html5calendar/
+[ht5c-docs]: http://scottpledger.github.io/html5calendar/docs/readme.html
+[ht5c-demos]: http://scottpledger.github.io/html5calendar/demos/index.html
 [git]: http://git-scm.com/
 [node]: http://nodejs.org/
 [grunt-cli]: http://gruntjs.com/getting-started#installing-the-cli

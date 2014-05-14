@@ -13,6 +13,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-jscs-checker');
 	grunt.loadNpmTasks('grunt-groc');
+	grunt.loadNpmTasks('grunt-github-pages');
 	grunt.loadNpmTasks('lumbar');
 
 	// Parse config files
@@ -90,7 +91,7 @@ module.exports = function(grunt) {
 	----------------------------------------------------------------------------------------------------*/
 
 	grunt.registerTask('docs', 'Build the HTML5Calendar documentation', [
-		'groc:javascript',
+		'groc:javascript'
 	]);
 
 	config.groc = {
@@ -102,13 +103,6 @@ module.exports = function(grunt) {
 		}
 	}
 
-	/* Website
-	----------------------------------------------------------------------------------------------------*/
-
-	grunt.registerTask('website', 'Build the HTML5Calendar website', [
-		'groc:javascript',
-	])
-
 
 	/* Archive
 	----------------------------------------------------------------------------------------------------*/
@@ -118,6 +112,7 @@ module.exports = function(grunt) {
 		'modules',
 		'copy:archiveModules',
 		'copy:archiveMoment',
+		'copy:archiveMomentRange',
 		'copy:archiveJQuery',
 		'concat:archiveJQueryUI',
 		'copy:archiveDemos',
@@ -134,10 +129,13 @@ module.exports = function(grunt) {
 	};
 
 	config.copy.archiveMoment = {
-		files: {
-			'lib/moment/min/moment.min.js': 'build/archive/lib/moment.min.js',
-			'lib/moment-range/lib/moment-range.js': 'build/archive/lib/moment-range.js'
-		}
+		src: 'lib/moment/min/moment.min.js',
+		dest: 'build/archive/lib/moment.min.js'
+	};
+
+	config.copy.archiveMomentRange = {
+		src: 'lib/moment-range/lib/moment-range.js',
+		dest: 'build/archive/lib/moment-range.js'
 	};
 
 	config.copy.archiveJQuery = {
@@ -173,6 +171,7 @@ module.exports = function(grunt) {
 	// in demo HTML, rewrites paths to work in the archive
 	function transformDemoPath(path) {
 		path = path.replace('../lib/moment/moment.js', '../lib/moment.min.js');
+		path = path.replace('../lib/moment-range/lib/moment-range.js', '../lib/moment-range.js');
 		path = path.replace('../lib/jquery/jquery.js', '../lib/jquery.min.js');
 		path = path.replace('../lib/jquery-ui/ui/jquery-ui.js', '../lib/jquery-ui.custom.min.js');
 		path = path.replace('../lib/jquery-ui/themes/cupertino/', '../lib/cupertino/');
@@ -295,7 +294,40 @@ module.exports = function(grunt) {
 	config.jshint = require('./jshint.conf');
 	config.jscs = require('./jscs.conf');
 
+	/* Deployment of web services.
+	----------------------------------------------------------------------------------------------------*/
 
+	grunt.registerTask('deploy', 'Deploy website information.',[
+		'docs','archive',
+		'copy:deploy',
+		'githubPages:target'
+	]);
+
+	config.copy.deploy = {
+		files: [
+			{
+				expand:true,
+				cwd: 'build/archive',
+				src: ['**'],
+				dest: 'web/'
+			},
+			{
+				src: 'docs/**',
+				dest: 'web/'
+			}
+		]
+	};
+
+	config.githubPages = {
+		target: {
+			options: {
+				// The default commit message for the gh-pages branch
+				commitMessage: 'push'
+			},
+			// The folder where your gh-pages repo is
+			src: 'web'
+		}
+	};
 
 	// finally, give grunt the config object...
 	grunt.initConfig(config);
