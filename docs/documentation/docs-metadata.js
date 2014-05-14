@@ -42,10 +42,10 @@ DOC_DATA=[
 {"lineStart":10,"lineEnd":33}],"source":false},
 {"section":"api","group":"angular","id":"ng.$document","name":false,"shortName":"$document","docType":"object","module":"ng","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$document $window angular browser document element jquery ng object reference the to window","codeBlocks":[
 {"lineStart":3,"lineEnd":10}],"source":false},
-{"section":"api","group":"angular","id":"ng.$exceptionHandler","name":false,"shortName":"$exceptionHandler","docType":"function","module":"ng","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$exceptionhandler $log about aids angular angular-mocks any associated browser by cause console context default delegated delegates error exception expressions function if implementation in information into is it js loaded logs mock ng ngmock optional overridden service simply testing tests the this thrown to uncaught unit was which with","codeBlocks":[
-{"lineStart":3,"lineEnd":19}],"source":false},
 {"section":"api","group":"angular","id":"ngMock.$exceptionHandler","name":false,"shortName":"$exceptionHandler","docType":"object","module":"ngMock","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$exceptionhandler $exceptionhandlerprovider $log $timeout and assertempty banana capture configuration describe errors exceptions expect flush for function implementation information inject into it log logs messages mock mode module ng ngmock object of or passed peel rethrows see should that throw toequal","codeBlocks":[
 {"lineStart":197,"lineEnd":228}],"source":false},
+{"section":"api","group":"angular","id":"ng.$exceptionHandler","name":false,"shortName":"$exceptionHandler","docType":"function","module":"ng","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$exceptionhandler $log about aids angular angular-mocks any associated browser by cause console context default delegated delegates error exception expressions function if implementation in information into is it js loaded logs mock ng ngmock optional overridden service simply testing tests the this thrown to uncaught unit was which with","codeBlocks":[
+{"lineStart":3,"lineEnd":19}],"source":false},
 {"section":"api","group":"angular","id":"ngMock.$exceptionHandlerProvider","name":false,"shortName":"$exceptionHandlerProvider","docType":"object","module":"ngMock","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$exceptionhandler $exceptionhandlerprovider $log allow an and any application are array assertempty assertion bug case configures defaults desirable error errors fail for handler if implementation in into is it later log logging make means method mock mode ng ngmock object of operation or passed reset rethrow see sets so sometimes stores test tests that the them there these this thrown to typically will","codeBlocks":[
 {"lineStart":188,"lineEnd":194},
 {"lineStart":234,"lineEnd":250}],"source":false},
@@ -63,6 +63,18 @@ DOC_DATA=[
 {"lineStart":787,"lineEnd":798},
 {"lineStart":801,"lineEnd":812},
 {"lineStart":816,"lineEnd":825}],"source":false},
+{"section":"api","group":"angular","id":"ngMockE2E.$httpBackend","name":false,"shortName":"$httpBackend","docType":"object","module":"ngMockE2E","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$http $httpbackend additionally adds afterwards an and angular any api apis app application applications array as automatically backend backend-less be behavior being body bootstrap bypass can category certain closely configure containing control create creates current data defines definition delete depends desirable developed development do don during dynamic e2e end-to-end etc fake fetch files flush flushes for from fromjson function get handled handler have head header headers how http if implementation in info instead interact is issue it its jsonp like list made manually match matched matching method methods mock mocked module modules more myapp myappdev new ng ngmock ngmocke2e object of often on opposed optionally or out pass passthrough patch phone phone1 phone2 phones please post push put real reason receives remote replaced request requests respond response responses return returned returns run scenario see server service set setup shortcuts simulating specific static status suitable takes templates testing that the this through to true unit unit-testing url use used via want we webserver when whendelete whenget whenhead whenjsonp whenpatch whenpost whenput will with xhr xmlhttprequest you your","codeBlocks":[
+{"lineStart":1499,"lineEnd":1544},
+{"lineStart":1547,"lineEnd":1568},
+{"lineStart":1571,"lineEnd":1581},
+{"lineStart":1584,"lineEnd":1594},
+{"lineStart":1597,"lineEnd":1607},
+{"lineStart":1610,"lineEnd":1621},
+{"lineStart":1624,"lineEnd":1635},
+{"lineStart":1638,"lineEnd":1649},
+{"lineStart":1652,"lineEnd":1661}],"source":false},
+{"section":"api","group":"angular","id":"ng.$httpBackend","name":false,"shortName":"$httpBackend","docType":"object","module":"ng","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$browser $document $http $httpbackend $resource $window abstractions and backend be browser by can deals delegates directly during higher-level http implementation incompatibilities instead is jsonp mock need never ng ngmock ngresource object or responses service should swapped testing that the this to trained use used which with xmlhttprequest you","codeBlocks":[
+{"lineStart":9,"lineEnd":24}],"source":false},
 {"section":"api","group":"angular","id":"ngMock.$httpBackend","name":false,"shortName":"$httpBackend","docType":"object","module":"ngMock","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$http $httpbackend $injector $new $scope a-token about aftereach algorithm all allow allowing allows alternatively always an and angular any api apis application applications appropriate are array arrived as assert assertions asserts async asynchronously at auth authentication authorization backend backend-less be because been beforeeach behavior below body both but by call called calls can care case cases certain change check class clause code common containing content control controller count create creates current data define defined definition definitions delete dependencies dependency development didn doesn don during dynamic e2e each easy end end-to-end error etc evaluated exception execute execution expect expectation expectations expectdelete expected expectget expecthead expectjsonp expectpatch expectpost expectput explicitly external fail fake fetch first flush flushed flushes flushing follow following for from function get gets handled hard has have having head header headers how http https if implementation in info inject injection instance is it jsonp just let made maintain make makes match matched matters message method mock more mozilla msg multiple multiple-phase mycontroller need needs new ng ngmock ngmocke2e no not now number object of or order org our outstanding particular pass patch pending please post pre-trained preserved preserves preserving production programming provide put py quickly real really reason receives request requests required resetexpectations resets respond responds response responses result return returned returns reuse run same savemessage saving scope search see send sending sends sent sequential server service set shortcuts should sign so some specified specifies specify static status still success suitable synchronously table takes test testing tests that the their them there they this those thrown throws thus time to tobe token trained true two typically undefined under unit url usage use used user userx using var verifies verify verifyexpectations verifynooutstandingexpectation verifynooutstandingrequest via vs want was wasn way ways we were what whatever when whendelete whenget whenhead whenjsonp whenpost whenput where whether which while width wikipedia will with without won would write wrong xhr xxx you your","codeBlocks":[
 {"lineStart":710,"lineEnd":879},
 {"lineStart":972,"lineEnd":990},
@@ -84,18 +96,6 @@ DOC_DATA=[
 {"lineStart":1246,"lineEnd":1259},
 {"lineStart":1269,"lineEnd":1281},
 {"lineStart":1290,"lineEnd":1297}],"source":false},
-{"section":"api","group":"angular","id":"ng.$httpBackend","name":false,"shortName":"$httpBackend","docType":"object","module":"ng","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$browser $document $http $httpbackend $resource $window abstractions and backend be browser by can deals delegates directly during higher-level http implementation incompatibilities instead is jsonp mock need never ng ngmock ngresource object or responses service should swapped testing that the this to trained use used which with xmlhttprequest you","codeBlocks":[
-{"lineStart":9,"lineEnd":24}],"source":false},
-{"section":"api","group":"angular","id":"ngMockE2E.$httpBackend","name":false,"shortName":"$httpBackend","docType":"object","module":"ngMockE2E","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$http $httpbackend additionally adds afterwards an and angular any api apis app application applications array as automatically backend backend-less be behavior being body bootstrap bypass can category certain closely configure containing control create creates current data defines definition delete depends desirable developed development do don during dynamic e2e end-to-end etc fake fetch files flush flushes for from fromjson function get handled handler have head header headers how http if implementation in info instead interact is issue it its jsonp like list made manually match matched matching method methods mock mocked module modules more myapp myappdev new ng ngmock ngmocke2e object of often on opposed optionally or out pass passthrough patch phone phone1 phone2 phones please post push put real reason receives remote replaced request requests respond response responses return returned returns run scenario see server service set setup shortcuts simulating specific static status suitable takes templates testing that the this through to true unit unit-testing url use used via want we webserver when whendelete whenget whenhead whenjsonp whenpatch whenpost whenput will with xhr xmlhttprequest you your","codeBlocks":[
-{"lineStart":1499,"lineEnd":1544},
-{"lineStart":1547,"lineEnd":1568},
-{"lineStart":1571,"lineEnd":1581},
-{"lineStart":1584,"lineEnd":1594},
-{"lineStart":1597,"lineEnd":1607},
-{"lineStart":1610,"lineEnd":1621},
-{"lineStart":1624,"lineEnd":1635},
-{"lineStart":1638,"lineEnd":1649},
-{"lineStart":1652,"lineEnd":1661}],"source":false},
 {"section":"api","group":"angular","id":"AUTO.$injector","name":false,"shortName":"$injector","docType":"object","module":"AUTO","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$compile $inject $injector $provide $rootscope $route $scope above adding all always an and angular annotate annotated annotating annotation annotations any api are argument arguments array as auto be before better break by call calling can change choice code come consulted converting create define defined definition dependencies dependency dependent described desirable determine does done equivalent expect explicit extract extracted extracting first fn following for forced form from function functions get given has have holds if in inconvenient inference inferred injected injection injector inline inlining instance instances instantiate into invoke invoked invokes is it item its javascript js last load locals method methods minfication minification minified modules mycontroller name names need needed new not notation obfrootscope obfus_ obfuscatedrootscope obfuscatedroute obfuscation object of often on onto operator optional parameters parsed preset property provider read reason represent requesting requires retrieve retrieved return returned returns safe self service servicea services setting simplest since situations specified specify strategies string strings supplies supply support supported survives takes that the then there therefore these this three tmpfn to tobe toequal tools tostring true type types used using valid value var very way ways we when where which wish with work works write","codeBlocks":[
 {"lineStart":75,"lineEnd":124},
 {"lineStart":127,"lineEnd":136},
@@ -127,6 +127,13 @@ DOC_DATA=[
 {"lineStart":451,"lineEnd":455},
 {"lineStart":461,"lineEnd":467},
 {"lineStart":478,"lineEnd":484}],"source":false},
+{"section":"api","group":"angular","id":"ng.$log","name":false,"shortName":"$log","docType":"object","module":"ng","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$log $scope $window an and browser button console debug debugging default enter error for function hello hit html implementation index info information into is js log logctrl logging main message method name ng ng-click ng-controller ng-model object of open page present purpose script service simple simplify text the this to troubleshooting type warn warning with world write writes","codeBlocks":[
+{"lineStart":3,"lineEnd":33},
+{"lineStart":65,"lineEnd":71},
+{"lineStart":75,"lineEnd":81},
+{"lineStart":85,"lineEnd":91},
+{"lineStart":95,"lineEnd":101},
+{"lineStart":105,"lineEnd":111}],"source":false},
 {"section":"api","group":"angular","id":"ngMock.$log","name":false,"shortName":"$log","docType":"service","module":"ngMock","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$log all an are array arrays as assert assertempty each empty error exception exposed for function gathers have if implementation in info is level level-specific log logged logging logs messages method methods mock ng ngmock no of per present property reset service that the these thrown to warn","codeBlocks":[
 {"lineStart":285,"lineEnd":293},
 {"lineStart":310,"lineEnd":316},
@@ -135,13 +142,6 @@ DOC_DATA=[
 {"lineStart":337,"lineEnd":343},
 {"lineStart":346,"lineEnd":352},
 {"lineStart":357,"lineEnd":363}],"source":false},
-{"section":"api","group":"angular","id":"ng.$log","name":false,"shortName":"$log","docType":"object","module":"ng","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$log $scope $window an and browser button console debug debugging default enter error for function hello hit html implementation index info information into is js log logctrl logging main message method name ng ng-click ng-controller ng-model object of open page present purpose script service simple simplify text the this to troubleshooting type warn warning with world write writes","codeBlocks":[
-{"lineStart":3,"lineEnd":33},
-{"lineStart":65,"lineEnd":71},
-{"lineStart":75,"lineEnd":81},
-{"lineStart":85,"lineEnd":91},
-{"lineStart":95,"lineEnd":101},
-{"lineStart":105,"lineEnd":111}],"source":false},
 {"section":"api","group":"angular","id":"ng.$logProvider","name":false,"shortName":"$logProvider","docType":"object","module":"ng","moduleSection":"service","moduleItem":"","moduleSubItem":"","keywords":"$logprovider application as configure current debug debugenabled disable enable flag getter how if itself level logs messages ng object or property setter the to use used value","codeBlocks":[
 {"lineStart":36,"lineEnd":40},
 {"lineStart":46,"lineEnd":52}],"source":false},

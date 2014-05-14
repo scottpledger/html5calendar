@@ -1,1 +1,1 @@
-baseURL = '/'; addTag('base', {href: '/'});  window.discussionConfigs = {active:false, shortName:'false', url:'false', dev:false}; 
+baseURL = 'http://scottpledger.github.io/html5calendar/docs/'; addTag('base', {href: 'http://scottpledger.github.io/html5calendar/docs/'});  window.discussionConfigs = {active:false, shortName:'false', url:'false', dev:false}; 
