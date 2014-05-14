@@ -11,6 +11,14 @@ NG_DOCS={
       "shortName": "//api.jqueryui.com/jQuery.widget/)",
       "type": "function",
       "keywords": "api factory function html5calendar jquery jqueryui ui widget"
+    },
+    {
+      "section": "developer",
+      "id": "HT5CEvent",
+      "shortName": "HT5CEvent",
+      "type": "overview",
+      "moduleName": "HT5CEvent",
+      "keywords": "developer event ht5cevent html5calendar overview wrapper"
     }
   ],
   "apis": {
