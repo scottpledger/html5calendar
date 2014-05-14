@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en"><head><title>src/lib/event</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="src/lib/event"><meta name="groc-project-path" content="src/lib/event.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/lib/event.js</div></div><div id="document"><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class HT5CEvent</p>
+
+<p>An Event wrapper for HTML5Calendar</span></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">HT5CEvent</span><span class="p">;</span>
+<span class="nx">HT5CEvent</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor </span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>el can be a DOMElement or an Object.</strong></li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="kd">function</span> <span class="nx">HT5CEvent</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">end</span><span class="p">,</span><span class="nx">k</span><span class="p">;</span>
+
+    <span class="k">for</span><span class="p">(</span><span class="nx">k</span> <span class="k">in</span> <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">defaults</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">defaults</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">isPlainObject</span><span class="p">(</span><span class="nx">el</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">for</span><span class="p">(</span><span class="nx">k</span> <span class="k">in</span> <span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">k</span><span class="o">==</span><span class="s1">&#39;start&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">start</span> <span class="o">=</span> <span class="nx">el</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">k</span><span class="o">==</span><span class="s1">&#39;end&#39;</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">end</span> <span class="o">=</span> <span class="nx">el</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span><span class="o">=</span><span class="nx">el</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;li&gt;&lt;/li&gt;&#39;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">==</span><span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">$el</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">),</span>
+          <span class="nx">attrs</span> <span class="o">=</span> <span class="nx">$el</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">attributes</span><span class="p">,</span>
+          <span class="nx">attr</span><span class="p">,</span><span class="nx">attrName</span><span class="p">;</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">$el</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="nx">$el</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">)</span><span class="o">!=</span><span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">$el</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">k</span><span class="o">&lt;</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">attr</span> <span class="o">=</span> <span class="nx">attrs</span><span class="p">[</span><span class="nx">k</span><span class="p">];</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">attr</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">attrPrefix</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="o">==</span><span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">attrPrefix</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">attrName</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">attrPrefix</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+          <span class="k">if</span><span class="p">(</span><span class="nx">attrName</span><span class="o">==</span><span class="s1">&#39;start&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">start</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">attrName</span><span class="o">==</span><span class="s1">&#39;end&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">end</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">[</span><span class="nx">attr</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">attrPrefix</span><span class="p">.</span><span class="nx">length</span><span class="p">)]</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+          <span class="p">}</span>
+          
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">$el</span><span class="p">;</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;draggable&#39;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;draggable&#39;</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">movable</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">movable</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;resizable&#39;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;resizable&#39;</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">resizable</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">resizable</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Invalid Event!&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">start</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="nx">start</span><span class="p">);</span>
+    <span class="nx">end</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="nx">end</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nx">start</span><span class="p">.</span><span class="nx">isValid</span><span class="p">())</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="nx">start</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Invalid Event!&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">end</span><span class="p">.</span><span class="nx">isValid</span><span class="p">())</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">end</span> <span class="o">=</span> <span class="nx">end</span><span class="p">;</span>
+      <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">.</span><span class="nx">isBefore</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Invalid Event!&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+      
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">allDay</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">startOf</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">end</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="nx">start</span><span class="p">).</span><span class="nx">endOf</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">html</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">html</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">resizable</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;hr class=&quot;ht5c-event-resizeHandle&quot;&gt;&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;ht5c-event&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">_segments</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">}</span>
+  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">HT5CEvent</span><span class="p">;</span>
+
+  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">attrPrefix</span> <span class="o">=</span> <span class="s1">&#39;data-calendar-event-&#39;</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method _rmSegments</span></p>
+
+<p>Removes all segments associated with this event from the
+DOM.</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_rmSegments</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+    <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_segments</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method _getSegment</span></p>
+
+<p>Gets a new segment to be inserted later into the DOM.
+Caches the segment for later removal.</p>
+
+<p><strong>Returns a $(DOMElement)</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_getSegment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">$nel</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">clone</span><span class="p">();</span>
+    <span class="nx">$nel</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">$nel</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">$nel</span><span class="p">;</span>
+  <span class="p">}</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method makeSegments</span></p>
+
+<p>Chunks the event into segments.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>on must be a moment.unit.</strong><br/>(Chunk into )</p></li>
+<li><p><strong>tMin can be a (moment.duration or a Number).</strong><br/>(Beginning of each day)</p></li>
+<li><p><strong>tMax can be a (moment.duration or a Number).</strong><br/>(End of each day)</p></li>
+</ul>
+
+<p><strong>Returns a $([DOMElement])</strong><br/>(A jQuery-wrapped list of segment elements.)</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">makeSegments</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">on</span><span class="p">,</span><span class="nx">tMin</span><span class="p">,</span><span class="nx">tMax</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_rmSegments</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">chunks</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">chunk</span><span class="p">(</span><span class="s1">&#39;into&#39;</span><span class="o">+</span><span class="nx">on</span><span class="p">),</span>
+        <span class="nx">i</span><span class="p">,</span><span class="nx">nRange</span><span class="p">,</span><span class="nx">$nel</span><span class="p">,</span><span class="nx">topOffset</span><span class="p">,</span><span class="nx">mStart</span><span class="p">,</span><span class="nx">mEnd</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-calendar-event-receive=&quot;timeSpan&quot;]&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">format</span><span class="p">());</span>
+    <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">chunks</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">nRange</span> <span class="o">=</span> <span class="nx">chunks</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="nx">mStart</span> <span class="o">=</span> <span class="nx">nRange</span><span class="p">.</span><span class="nx">start</span><span class="p">;</span>
+      <span class="nx">mEnd</span> <span class="o">=</span> <span class="nx">nRange</span><span class="p">.</span><span class="nx">end</span><span class="p">;</span>
+      <span class="nx">$nel</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_getSegment</span><span class="p">();</span>
+
+      <span class="nx">topOffset</span> <span class="o">=</span> <span class="nx">mStart</span><span class="p">.</span><span class="nx">diff</span><span class="p">(</span><span class="nx">moment</span><span class="p">(</span><span class="nx">mStart</span><span class="p">).</span><span class="nx">startOf</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">),</span><span class="s1">&#39;hours&#39;</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+
+      <span class="nx">$nel</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;range&#39;</span><span class="p">,</span><span class="nx">nRange</span><span class="p">);</span>
+
+      <span class="nx">$nel</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="s1">&#39;dimensions&#39;</span><span class="p">,{</span>
+        <span class="nx">top</span><span class="o">:</span> <span class="nx">topOffset</span><span class="p">,</span>
+        <span class="nx">height</span><span class="o">:</span> <span class="nx">mEnd</span><span class="p">.</span><span class="nx">diff</span><span class="p">(</span><span class="nx">mStart</span><span class="p">,</span><span class="s1">&#39;hours&#39;</span><span class="p">,</span><span class="kc">true</span><span class="p">)</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">);</span>
+
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method redraw</span></p>
+
+<p>Updates contents of malleable child tags.</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">redraw</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-calendar-event-receive=&quot;timeSpan&quot;]&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">format</span><span class="p">());</span>
+    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">).</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-calendar-event-receive=&quot;timeSpan&quot;]&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">format</span><span class="p">());</span>
+  <span class="p">}</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method clone</span></p>
+
+<p>Creates a deep-copy duplicate of this event.</p>
+
+<p><strong>Returns a HT5CEvent</strong><br/>(Clone of this event.)</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">clone</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">$nel</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">clone</span><span class="p">(),</span><span class="nx">nev</span><span class="p">,</span><span class="nx">i</span><span class="p">;</span>
+    <span class="nx">$nel</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-calendar-event-start&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">format</span><span class="p">());</span>
+    <span class="nx">$nel</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-calendar-event-end&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">.</span><span class="nx">format</span><span class="p">());</span>
+    <span class="nx">$nel</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-calendar-event-allDay&#39;</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">allDay</span><span class="p">);</span>
+    <span class="nx">nev</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HT5CEvent</span><span class="p">(</span><span class="nx">$nel</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">nev</span><span class="p">.</span><span class="nx">_segments</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">clone</span><span class="p">());</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="nx">nev</span><span class="p">;</span>
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method show</span></p>
+
+<p>Displays this event and all segments associated with it.</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">show</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">,</span><span class="s1">&#39;block&#39;</span><span class="p">)});</span>
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method hide</span></p>
+
+<p>Hides this event and all segments associated with it.</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hide</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">,</span><span class="s1">&#39;none&#39;</span><span class="p">)});</span>
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method addClass</span></p>
+
+<p>Adds a class/classes to all segments associated with this event.
+See <a href="http: //api.jquery.com/addclass/">jQuery.addClass</a> for usage.</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">addClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">addClass</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">,</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,[</span><span class="mi">0</span><span class="p">]));</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">addClass</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">),</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,[</span><span class="mi">0</span><span class="p">]));</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method removeClass</span></p>
+
+<p>Removes a class/classes from all segments associated with this event.
+See <a href="http: //api.jquery.com/removeclass/">jQuery.removeClass</a> for usage.</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">removeClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">,</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,[</span><span class="mi">0</span><span class="p">]));</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">),</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,[</span><span class="mi">0</span><span class="p">]));</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method add</span></p>
+
+<p>Adds the given amount of time to both the start and end of this event.
+See <a href="http: //momentjs.com/docs/#/manipulating/add/">moment.fn.add</a> for usage.</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method update</span></p>
+
+<p>Updates the event's range.</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method remove</span></p>
+
+<p>Removes all DOM Elements associated to this event from the DOM tree.</p></div></div><div class="code"><div class="wrapper">  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+    <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_segments</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">).</span><span class="nx">remove</span><span class="p">();});</span>
+  <span class="p">};</span>
+
+
+
+
+  <span class="nx">HT5CEvent</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">allDay</span><span class="o">:</span> <span class="kc">false</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="nx">HT5CEvent</span><span class="p">;</span>
+<span class="p">})();</span></div></div></div></div></body></html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html><html lang="en"><head><title>src/moment-range</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/moment-range"><meta name="groc-project-path" content="src/moment-range.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/moment-range.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">root</span><span class="p">,</span> <span class="nx">factory</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">exports</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;moment&#39;</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">define</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">define</span><span class="p">.</span><span class="nx">amd</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">define</span><span class="p">(</span><span class="s1">&#39;moment-range&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;moment&#39;</span><span class="p">],</span> <span class="nx">factory</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">root</span><span class="p">.</span><span class="nx">moment</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">moment</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}(</span><span class="k">this</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">moment</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class DateRange</p>
+
+<p>The DateRange class, to create ranges of dates.
+This class was originally found at [https://github.com/gf3/moment-range],
+but I required some extensive additions to be made to it, and lack of access to the DateRange
+object required that I fork it.</span></p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">DateRange</span><span class="p">;</span>
+
+<span class="c1">//TODO: I need to translate my changes back into coffeescript for the original project.</span>
+<span class="nx">DateRange</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor </span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>start can be a Moment, a Date, an Object, a String, or a Number.</strong><br/>(Start date/time)</p></li>
+<li><p><strong>end can be a Moment, a Date, an Object, a String, or a Number.</strong><br/>(End date/time)</p></li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="kd">function</span> <span class="nx">DateRange</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">end</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="nx">start</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">end</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="nx">end</span><span class="p">);</span>
+  <span class="p">}</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method contains</span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>other can be a Moment, a DateRange, a Date, an Object, a String, or a Number.</strong></li>
+</ul>
+
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">contains</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">other</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">other</span> <span class="k">instanceof</span> <span class="nx">DateRange</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;</span> <span class="nx">other</span><span class="p">.</span><span class="nx">start</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span> <span class="o">&gt;</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;=</span> <span class="nx">other</span> <span class="o">&amp;&amp;</span> <span class="nx">other</span> <span class="o">&lt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method _by_string</span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>interval must be a [type].</strong><br/>([description])</p></li>
+<li><p><strong>hollaback must be a [type].</strong><br/>([description])</p></li>
+</ul>
+
+<p><strong>Returns a [type]</strong><br/>([description])</p></div></div><div class="code"><div class="wrapper">  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_by_string</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="nx">hollaback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">current</span><span class="p">,</span> <span class="nx">_results</span><span class="p">;</span>
+    <span class="nx">current</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">);</span>
+    <span class="nx">_results</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">while</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">current</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">hollaback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">current</span><span class="p">.</span><span class="nx">clone</span><span class="p">());</span>
+      <span class="nx">_results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">current</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">interval</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">_results</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  </div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private method _by_range</span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>interval must be a [type].</strong><br/>([description])</p></li>
+<li><p><strong>hollaback must be a [type].</strong><br/>([description])</p></li>
+</ul>
+
+<p><strong>Returns a [type]</strong><br/>([description])</p></div></div><div class="code"><div class="wrapper">  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_by_range</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">range_interval</span><span class="p">,</span> <span class="nx">hollaback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">l</span><span class="p">,</span> <span class="nx">_i</span><span class="p">,</span> <span class="nx">_results</span><span class="p">;</span>
+    <span class="nx">l</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="k">this</span> <span class="err">/ range_interval);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">l</span> <span class="o">===</span> <span class="kc">Infinity</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">_results</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="nx">_i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="nx">l</span> <span class="o">?</span> <span class="nx">_i</span> <span class="o">&lt;=</span> <span class="nx">l</span> <span class="o">:</span> <span class="nx">_i</span> <span class="o">&gt;=</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="nx">l</span> <span class="o">?</span> <span class="o">++</span><span class="nx">_i</span> <span class="o">:</span> <span class="o">--</span><span class="nx">_i</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">_results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">hollaback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">moment</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">()</span> <span class="o">+</span> <span class="nx">range_interval</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">()</span> <span class="o">*</span> <span class="nx">i</span><span class="p">)));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">_results</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  </div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>[overlaps description]</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>range must be a [type].</strong><br/>([description])</li>
+</ul>
+
+<p><strong>Returns a [type]</strong><br/>([description])</p></div></div><div class="code"><div class="wrapper">  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">overlaps</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">range</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">intersect</span><span class="p">(</span><span class="nx">range</span><span class="p">)</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  
+
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">intersect</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">other</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">_ref</span><span class="p">,</span> <span class="nx">_ref1</span><span class="p">,</span> <span class="nx">_ref2</span><span class="p">,</span> <span class="nx">_ref3</span><span class="p">,</span> <span class="nx">_ref4</span><span class="p">,</span> <span class="nx">_ref5</span><span class="p">,</span> <span class="nx">_ref6</span><span class="p">,</span> <span class="nx">_ref7</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(((</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="nx">_ref1</span> <span class="o">=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">start</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref1</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref</span> <span class="o">&lt;</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">DateRange</span><span class="p">(</span><span class="nx">other</span><span class="p">.</span><span class="nx">start</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(((</span><span class="nx">other</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref3</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref3</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref2</span> <span class="o">=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref2</span> <span class="o">&lt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">DateRange</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">,</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(((</span><span class="nx">other</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref5</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref5</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref4</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref4</span> <span class="o">&lt;</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(((</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="nx">_ref7</span> <span class="o">=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">start</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref7</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref6</span> <span class="o">=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref6</span> <span class="o">&lt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">other</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  
+
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">subtract</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">other</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">_ref</span><span class="p">,</span> <span class="nx">_ref1</span><span class="p">,</span> <span class="nx">_ref2</span><span class="p">,</span> <span class="nx">_ref3</span><span class="p">,</span> <span class="nx">_ref4</span><span class="p">,</span> <span class="nx">_ref5</span><span class="p">,</span> <span class="nx">_ref6</span><span class="p">,</span> <span class="nx">_ref7</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">intersect</span><span class="p">(</span><span class="nx">other</span><span class="p">)</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[</span><span class="k">this</span><span class="p">];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(((</span><span class="nx">other</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="nx">_ref1</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref1</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref</span> <span class="o">&lt;=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(((</span><span class="nx">other</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="nx">_ref3</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref3</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref2</span> <span class="o">=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref2</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[</span><span class="k">new</span> <span class="nx">DateRange</span><span class="p">(</span><span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">)];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(((</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref5</span> <span class="o">=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">start</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref5</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref4</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref4</span> <span class="o">&lt;=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[</span><span class="k">new</span> <span class="nx">DateRange</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">,</span> <span class="nx">other</span><span class="p">.</span><span class="nx">start</span><span class="p">)];</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(((</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref7</span> <span class="o">=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">start</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref7</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">_ref6</span> <span class="o">=</span> <span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="nx">_ref6</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">[</span><span class="k">new</span> <span class="nx">DateRange</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">,</span> <span class="nx">other</span><span class="p">.</span><span class="nx">start</span><span class="p">),</span> <span class="k">new</span> <span class="nx">DateRange</span><span class="p">(</span><span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">)];</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  
+
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">by</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">range</span><span class="p">,</span> <span class="nx">hollaback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">range</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">_by_string</span><span class="p">(</span><span class="nx">range</span><span class="p">,</span> <span class="nx">hollaback</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">_by_range</span><span class="p">(</span><span class="nx">range</span><span class="p">,</span> <span class="nx">hollaback</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  
+
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">valueOf</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  
+
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toDate</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">toDate</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">.</span><span class="nx">toDate</span><span class="p">()];</span>
+  <span class="p">};</span>
+
+  
+
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">isSame</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">other</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">isSame</span><span class="p">(</span><span class="nx">other</span><span class="p">.</span><span class="nx">start</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">.</span><span class="nx">isSame</span><span class="p">(</span><span class="nx">other</span><span class="p">.</span><span class="nx">end</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_format</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fmt</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">fmt</span> <span class="o">===</span> <span class="s2">&quot;string&quot;</span><span class="p">){</span>
+      <span class="nx">fmt</span> <span class="o">=</span> <span class="p">[</span><span class="nx">fmt</span><span class="p">,</span><span class="nx">fmt</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">fmt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nx">DateRange</span><span class="p">.</span><span class="nx">separator</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">fmt</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+  <span class="p">}</span>
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">format</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">_directives</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">directives</span> <span class="o">=</span> <span class="nx">_directives</span><span class="o">||</span><span class="nx">DateRange</span><span class="p">.</span><span class="nx">defaultDirectives</span><span class="p">,</span>
+        <span class="nx">start</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">,</span> <span class="nx">end</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">,</span>
+        <span class="nx">chkFmt</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">,</span><span class="nx">i</span><span class="p">,</span><span class="nx">matchIf</span><span class="p">,</span><span class="nx">isMatch</span><span class="p">,</span><span class="nx">matchFmt</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">directives</span><span class="p">[</span><span class="s1">&#39;__default__&#39;</span><span class="p">]</span><span class="o">===</span><span class="kc">undefined</span><span class="p">){</span>
+      <span class="nx">directives</span><span class="p">[</span><span class="s1">&#39;__default__&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">DateRange</span><span class="p">.</span><span class="nx">defaultFormat</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span><span class="p">(</span><span class="nx">chkFmt</span> <span class="k">in</span> <span class="nx">directives</span><span class="p">){</span>
+      <span class="nx">fmt</span><span class="o">=</span><span class="nx">directives</span><span class="p">[</span><span class="nx">chkFmt</span><span class="p">];</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">chkFmt</span><span class="o">==</span><span class="s1">&#39;__default__&#39;</span><span class="p">){</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_format</span><span class="p">(</span><span class="nx">fmt</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">chkFmt</span> <span class="o">=</span> <span class="nx">chkFmt</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;!&#39;</span><span class="p">);</span>
+        <span class="nx">isMatch</span><span class="o">=</span><span class="kc">true</span><span class="p">;</span>
+        <span class="nx">matchIf</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">chkFmt</span><span class="p">){</span>
+          <span class="nx">matchFmt</span><span class="o">=</span><span class="nx">chkFmt</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+          <span class="nx">isMatch</span> <span class="o">=</span> <span class="nx">isMatch</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="nx">start</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">matchFmt</span><span class="p">)</span><span class="o">==</span><span class="nx">end</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">matchFmt</span><span class="p">))</span><span class="o">==</span><span class="nx">matchIf</span><span class="p">);</span>
+          <span class="nx">matchIf</span><span class="o">=!</span><span class="nx">matchIf</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">isMatch</span><span class="p">){</span>
+          <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_format</span><span class="p">(</span><span class="nx">fmt</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">chunk</span><span class="o">=</span><span class="kd">function</span><span class="p">(</span><span class="nx">duration</span><span class="p">,</span> <span class="nx">onBoundary</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">duration</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="o">==</span><span class="s1">&#39;into&#39;</span><span class="p">){</span>
+      <span class="nx">onBoundary</span><span class="o">=</span><span class="nx">moment</span><span class="p">.</span><span class="nx">normalizeUnits</span><span class="p">(</span><span class="nx">duration</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">4</span><span class="p">));</span>
+      <span class="nx">duration</span><span class="o">=</span><span class="nx">moment</span><span class="p">.</span><span class="nx">duration</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nx">onBoundary</span><span class="p">);</span>
+      
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">tBegin</span><span class="o">=</span><span class="nx">moment</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">),</span>
+        <span class="nx">tEnd</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">start</span><span class="p">),</span>
+        <span class="nx">res</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">onBoundary</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">moment</span><span class="p">.</span><span class="nx">isDuration</span><span class="p">(</span><span class="nx">onBoundary</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">tEnd</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="nx">tBegin</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="nx">onBoundary</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">tEnd</span><span class="p">.</span><span class="nx">endOf</span><span class="p">(</span><span class="nx">onBoundary</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">tEnd</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">duration</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="nx">tEnd</span><span class="p">.</span><span class="nx">isBefore</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">moment</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="nx">tBegin</span><span class="p">,</span><span class="nx">tEnd</span><span class="p">));</span>
+      <span class="nx">tBegin</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="nx">tEnd</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+      <span class="nx">tEnd</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">(</span><span class="nx">tEnd</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="nx">duration</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">tBegin</span><span class="p">.</span><span class="nx">isAfter</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">moment</span><span class="p">.</span><span class="nx">range</span><span class="p">(</span><span class="nx">tBegin</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">end</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+
+  <span class="p">}</span>
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">separator</span> <span class="o">=</span> <span class="s2">&quot; - &quot;</span><span class="p">;</span>
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">defaultDirectives</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;YY&#39;</span><span class="o">:</span><span class="s1">&#39;M/D/YY h:mm a&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;YYYY&#39;</span><span class="o">:</span><span class="s1">&#39;M/D/YYYY h:mm a&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;M&#39;</span><span class="o">:</span><span class="s1">&#39;M/D h:mm a&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;D&#39;</span><span class="o">:</span><span class="s1">&#39;M/D h:mm a&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;h!mm&#39;</span><span class="o">:</span><span class="s1">&#39;h a&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;__default__&#39;</span><span class="o">:</span><span class="s1">&#39;h:mm a&#39;</span>
+  <span class="p">};</span>
+
+  <span class="nx">DateRange</span><span class="p">.</span><span class="nx">defaultFormat</span> <span class="o">=</span> <span class="s1">&#39;l LT&#39;</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="nx">DateRange</span><span class="p">;</span>
+
+<span class="p">})();</span>
+
+<span class="nx">moment</span><span class="p">.</span><span class="nx">_range</span> <span class="o">=</span> <span class="nx">DateRange</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method moment.range()</span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>start can be a Moment, a Date, an Object, a String, or a Number.</strong><br/>(Start date/time)</p></li>
+<li><p><strong>end can be a Moment, a Date, an Object, a String, or a Number.</strong><br/>(End date/time)</p></li>
+</ul>
+
+<p><strong>Returns a DateRange</strong></p></div></div><div class="code"><div class="wrapper"><span class="nx">moment</span><span class="p">.</span><span class="nx">range</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span><span class="nx">end</span><span class="p">){</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">DateRange</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span><span class="nx">end</span><span class="p">);</span>
+<span class="p">}</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method moment().range()</span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>start can be a Moment, a Date, an Object, a String, or a Number.</strong><br/>(Start date/time)</li>
+</ul>
+
+<p><strong>Returns a DateRange</strong></p></div></div><div class="code"><div class="wrapper"><span class="nx">moment</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">range</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">,</span> <span class="s1">&#39;minute&#39;</span><span class="p">,</span> <span class="s1">&#39;second&#39;</span><span class="p">].</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">DateRange</span><span class="p">(</span><span class="nx">moment</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">startOf</span><span class="p">(</span><span class="nx">start</span><span class="p">),</span> <span class="nx">moment</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">endOf</span><span class="p">(</span><span class="nx">start</span><span class="p">));</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">DateRange</span><span class="p">(</span><span class="nx">moment</span><span class="p">(</span><span class="k">this</span><span class="p">),</span> <span class="nx">start</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+
+
+
+<span class="nx">moment</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">within</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">range</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">range</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_d</span><span class="p">);</span>
+<span class="p">};</span>
+
+    <span class="k">return</span> <span class="nx">moment</span><span class="p">;</span>
+<span class="p">}));</span></div></div></div></div></body></html>

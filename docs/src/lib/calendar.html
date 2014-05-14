@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en"><head><title>src/lib/calendar</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="src/lib/calendar"><meta name="groc-project-path" content="src/lib/calendar.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/lib/calendar.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">HT5Calendar</span><span class="p">;</span>
+<span class="nx">HT5Calendar</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">function</span> <span class="nx">HT5Calendar</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="kc">true</span><span class="p">,{},</span>
+      <span class="nx">HT5Calendar</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">,</span>
+      <span class="nx">options</span><span class="p">,</span>
+      <span class="nx">HT5Calendar</span><span class="p">.</span><span class="nx">_getOptsFromElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">));</span>
+
+    <span class="kd">var</span> <span class="nx">self</span><span class="o">=</span><span class="k">this</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;html5calendar&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_getOptsFromElement</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">weekOffset</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">today</span> <span class="o">=</span> <span class="nx">moment</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">defaultDate</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">date</span><span class="o">==</span><span class="s1">&#39;today&#39;</span> <span class="o">?</span>
+                            <span class="nx">moment</span><span class="p">()</span><span class="o">:</span>
+                            <span class="nx">moment</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">defaultDate</span><span class="p">));</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">innerElement</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.ht5c-inner&#39;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">innerElement</span><span class="p">.</span><span class="nx">length</span><span class="o">===</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">innerElement</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;ht5c-inner&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">innerElement</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">viewContainer</span><span class="o">=</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;ht5c-view&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">weeksList</span><span class="o">=</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;ul class=&quot;ht5c-weeks&quot;&gt;&lt;/ul&gt;&#39;</span><span class="p">);</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">hourRows</span><span class="o">=</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;ul class=&quot;ht5c-hours&quot;&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">days</span><span class="o">=</span><span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">weeks</span><span class="o">=</span><span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">colWidth</span><span class="o">=</span><span class="mi">100</span><span class="o">/</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">daysPerWeek</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hourHeight</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">innerElement</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hourRows</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">innerElement</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">viewContainer</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">viewContainer</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">weeksList</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">eventData</span><span class="o">=</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-calendar-events]&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">today</span><span class="p">.</span><span class="nx">startOf</span><span class="p">(</span><span class="s1">&#39;day&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_initButtons</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_parseEvents</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">innerElement</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;agenda basic month&#39;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;ht5c-agenda ht5c-basic ht5c-month&#39;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;ht5c-&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">_mouseInit</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nx">HT5Calendar</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_setOption</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+
+  <span class="nx">HT5Calendar</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">_initButtons</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-calendar-action]&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">$t</span><span class="o">=</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+      <span class="nx">self</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">html5calendar</span><span class="p">(</span><span class="nx">$t</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-calendar-action&#39;</span><span class="p">));</span>
+    <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;[data-calendar-option]&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">$t</span><span class="o">=</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+      <span class="nx">self</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">html5calendar</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">,</span><span class="nx">$t</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-calendar-option&#39;</span><span class="p">),</span><span class="nx">$t</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-calendar-optionValue&#39;</span><span class="p">));</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="nx">HT5Calendar</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="p">};</span>
+
+  <span class="nx">HT5Calendar</span><span class="p">.</span><span class="nx">_getOptsFromElement</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$el</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">val</span><span class="p">,</span><span class="nx">opts</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">opt</span> <span class="k">in</span> <span class="nx">HT5Calendar</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">val</span> <span class="o">=</span> <span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-calendar-&#39;</span><span class="o">+</span><span class="nx">opt</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">());</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">val</span><span class="o">!==</span><span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">opts</span><span class="p">[</span><span class="nx">opt</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">opts</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">HT5Calendar</span><span class="p">.</span><span class="nx">defaultOptions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">defaultTimedEventDuration</span><span class="o">:</span> <span class="s1">&#39;02:00:00&#39;</span><span class="p">,</span>
+    <span class="nx">defaultAllDayEventDuration</span><span class="o">:</span> <span class="p">{</span> <span class="nx">days</span><span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+    <span class="nx">forceEventDuration</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">nextDayThreshold</span><span class="o">:</span> <span class="s1">&#39;05:00:00&#39;</span><span class="p">,</span> <span class="c1">// 9am</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>display</p></div></div><div class="code"><div class="wrapper">    <span class="nx">view</span><span class="o">:</span> <span class="s1">&#39;month&#39;</span><span class="p">,</span>
+    <span class="nx">eventSources</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;[data-calendar-events]&#39;</span><span class="p">],</span>
+    
+    <span class="nx">weekends</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>event ajax</p></div></div><div class="code"><div class="wrapper">    <span class="nx">lazyFetching</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">startParam</span><span class="o">:</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span>
+    <span class="nx">endParam</span><span class="o">:</span> <span class="s1">&#39;end&#39;</span><span class="p">,</span>
+    <span class="nx">timezoneParam</span><span class="o">:</span> <span class="s1">&#39;timezone&#39;</span><span class="p">,</span>
+
+    <span class="c1">//allDayDefault: undefined,</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>time formats</p></div></div><div class="code"><div class="wrapper">    <span class="nx">titleFormat</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">month</span><span class="o">:</span> <span class="s1">&#39;MMMM YYYY&#39;</span><span class="p">,</span>
+      <span class="nx">week</span><span class="o">:</span> <span class="s1">&#39;ll&#39;</span><span class="p">,</span>
+      <span class="nx">day</span><span class="o">:</span> <span class="s1">&#39;LL&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">columnFormat</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">month</span><span class="o">:</span> <span class="s1">&#39;ddd&#39;</span><span class="p">,</span>
+      <span class="nx">week</span><span class="o">:</span> <span class="s1">&#39;ddd M/D&#39;</span><span class="p">,</span>
+      <span class="nx">day</span><span class="o">:</span> <span class="s1">&#39;dddd&#39;</span>
+    <span class="p">},</span>
+    <span class="nx">timeFormat</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s1">&#39;default&#39;</span><span class="o">:</span> <span class="s1">&#39;h:mm a&#39;</span>
+    <span class="p">},</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>locale</p></div></div><div class="code"><div class="wrapper">    <span class="nx">isRTL</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+
+    <span class="nx">selectable</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">unselectAuto</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+
+    <span class="nx">dropAccept</span><span class="o">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+
+    <span class="nx">handleWindowResize</span><span class="o">:</span> <span class="kc">true</span>
+  <span class="p">};</span>
+
+  
+
+  <span class="k">return</span> <span class="nx">HT5Calendar</span><span class="p">;</span>
+<span class="p">})();</span></div></div></div></div></body></html>
