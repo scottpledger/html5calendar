@@ -291,7 +291,7 @@ HT5CEvent = (function(undefined) {
 })();
 ;;
 /**
- * @ngdoc directive
+ * @ngdoc function
  * @name jQuery.html5calendar
  * @element textarea
  * 

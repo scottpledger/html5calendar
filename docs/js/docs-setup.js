@@ -8,9 +8,9 @@ NG_DOCS={
       "section": "api",
       "id": "jQuery.html5calendar",
       "shortName": "jQuery.html5calendar",
-      "type": "directive",
+      "type": "function",
       "moduleName": "jQuery",
-      "keywords": "api directive factory fn html5calendar jquery jqueryui textarea ui widget"
+      "keywords": "api factory fn function html5calendar jquery jqueryui textarea ui widget"
     }
   ],
   "apis": {
