@@ -1,0 +1,305 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 2, 2014, 2:01:01 PM
+    Author     : spledger
+*/
+
+.html5calendar *[class*="ht5c-"]{
+	font-size:1em;
+	line-height:1em;
+	margin:0;
+	padding:0;
+}
+
+.html5calendar > .ht5c-inner {
+	position: relative;
+}
+
+.html5calendar > ul[data-calendar-events] {
+	display: none;
+}
+
+.html5calendar ul[class*="ht5c-"]{
+	display:block;
+	list-style: none;
+	width:100%;
+}
+
+.html5calendar ul[class*="ht5c-"] > li {
+	display:block;
+}
+
+.html5calendar .ht5c-event > *,
+.html5calendar .ht5c-event-placeholder > *,
+.html5calendar .ht5c-hour > *
+ {
+	font-size:1rem;
+	line-height:1rem;
+}
+
+.html5calendar .ht5c-event-placeholder {
+	opacity:0.5;
+}
+
+.html5calendar .ht5c-week {
+	width:100%;
+}
+
+.html5calendar .ht5c-week > li {
+	float:left;
+}
+
+.html5calendar .ht5c-week > li > time {
+	display:block;
+	font-size:1rem;
+}
+
+.html5calendar .ht5c-hours {
+	position:relative;
+	left:0;
+	right:1px;
+	border-left:1px solid #CCC;
+}
+
+.html5calendar .ht5c-hours > li {
+	border-bottom:1px solid #CCC;
+	margin-bottom:-1px;
+	margin-right:1px;
+}
+
+.html5calendar .ht5c-hours > li:nth-of-type(even) {
+	border-bottom:1px dotted #CCC;
+}
+
+
+.html5calendar .ht5c-hours > li > time {
+	display: block;
+	padding-top: 2px;
+	line-height: 1em;
+	font-size: 0.6rem;
+	width: 2.8rem;
+	text-align: right;
+}
+
+.html5calendar.month-1  .ht5c-day:not(.month-1) > *,
+.html5calendar.month-2  .ht5c-day:not(.month-2) > *,
+.html5calendar.month-3  .ht5c-day:not(.month-3) > *,
+.html5calendar.month-4  .ht5c-day:not(.month-4) > *,
+.html5calendar.month-5  .ht5c-day:not(.month-5) > *,
+.html5calendar.month-6  .ht5c-day:not(.month-6) > *,
+.html5calendar.month-7  .ht5c-day:not(.month-7) > *,
+.html5calendar.month-8  .ht5c-day:not(.month-8) > *,
+.html5calendar.month-9  .ht5c-day:not(.month-9) > *,
+.html5calendar.month-10 .ht5c-day:not(.month-10) > *,
+.html5calendar.month-11 .ht5c-day:not(.month-11) > *,
+.html5calendar.month-12 .ht5c-day:not(.month-12) > * {
+	opacity:0.5;
+}
+.html5calendar .ht5c-inner.agenda {
+	margin-top:1rem;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-view {
+	position:absolute;
+	left:3rem;
+	right:0;
+	top:-1rem;
+	bottom:1rem;
+	overflow: hidden;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-weeks {
+	position:relative;
+	left:0;
+	height:100%;
+	width:100%;
+	transition: left 0.5s;
+	-webkit-transition: left 0.5s;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-week {
+	position:absolute;
+	left:0;
+	top:0;
+	bottom:-1px;
+	width:100%;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-days {
+	width:100%;
+	height:100%;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-day {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	float: left;
+	height: 100%;
+	border: 1px solid #CCC;
+	border-left: 0px;
+	padding: 0 3px;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-day:first-of-type {
+	border-left:1px solid #CCC;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-day > time {
+	font-size: 0.8rem;
+	line-height: 1rem;
+	text-align: center;
+	font-weight: 700;
+	display: block;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-events {
+	position: relative;
+	top:-1px;
+	height:100%;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-event,
+.html5calendar .ht5c-inner.agenda .ht5c-event-placeholder {
+	height:100%;
+	position:absolute;
+	overflow: hidden;
+}
+
+.html5calendar .ht5c-inner.agenda .ht5c-event .ht5c-event-resizeHandle {
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	height:4px;
+	border:0;
+	cursor: ns-resize;
+}
+
+.html5calendar .ht5c-inner.agenda.days-1 .ht5c-day {
+	width:100%;
+}
+
+.html5calendar .ht5c-inner.agenda.days-2 .ht5c-day {
+	width:50%;
+}
+
+.html5calendar .ht5c-inner.agenda.days-3 .ht5c-day {
+	width:33.3333%;
+}
+
+.html5calendar .ht5c-inner.agenda.days-4 .ht5c-day {
+	width:25%;
+}
+
+.html5calendar .ht5c-inner.agenda.days-5 .ht5c-day {
+	width:20%;
+}
+
+.html5calendar .ht5c-inner.agenda.days-6 .ht5c-day {
+	width:16.6666%;
+}
+
+.html5calendar .ht5c-inner.agenda.days-7 .ht5c-day,
+.html5calendar .ht5c-inner.agenda .ht5c-day {
+	width:14.2857142875%;
+}
+
+
+.html5calendar .ht5c-inner.month {
+	margin-top:0;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-hours {
+	display:none;
+}
+.html5calendar .ht5c-inner.month .ht5c-view {
+	position:absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	overflow: hidden;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-weeks {
+	position:absolute;
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	transition: top 0.5s;
+	-webkit-transition: top 0.5s;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-week {
+	position:absolute;
+	left:0;
+	top:0;
+	height:1em;
+	width:100%;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-days {
+	width:100%;
+	height:100%;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-day {
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	float: left;
+	height: 100%;
+	border: 1px solid #CCC;
+	border-left: 0px;
+	padding: 0 3px;
+	overflow:hidden;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-day:first-of-type {
+	border-left:1px solid #CCC;
+}
+
+.html5calendar .ht5c-inner.month .ht5c-day > time {
+	font-size: 0.8rem;
+	line-height: 1rem;
+	text-align: center;
+	font-weight: 700;
+	display: block;
+}
+
+.html5calendar .ht5c-inner.month.days-1 .ht5c-day {
+	width:100%;
+}
+
+.html5calendar .ht5c-inner.month.days-2 .ht5c-day {
+	width:50%;
+}
+
+.html5calendar .ht5c-inner.month.days-3 .ht5c-day {
+	width:33.3333%;
+}
+
+.html5calendar .ht5c-inner.month.days-4 .ht5c-day {
+	width:25%;
+}
+
+.html5calendar .ht5c-inner.month.days-5 .ht5c-day {
+	width:20%;
+}
+
+.html5calendar .ht5c-inner.month.days-6 .ht5c-day {
+	width:16.6666%;
+}
+
+.html5calendar .ht5c-inner.month.days-7 .ht5c-day,
+.html5calendar .ht5c-inner.month .ht5c-day {
+	width:14.2857142875%;
+}
+
+

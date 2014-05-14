@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset='utf-8' />
-<link href='../build/out/html5calendar.css' rel='stylesheet' />
+<link href='../html5calendar/html5calendar.css' rel='stylesheet' />
 <style>
 
 	body {
@@ -24,8 +24,8 @@
 	}
 
 	.demoCalendar .ht5c-inner.month {
-		font-size:128px;
-		line-height:128px;
+		font-size:100px;
+		line-height:100px;
 	}
 
 	section.panel {
@@ -40,12 +40,12 @@
 	<div id="calendar">
 		<div class="demoCalendar"
 			 data-calendar="html5" 
-			 data-calendar-type="month" 
-			 data-calendar-dayBegin="00:00:00" 
-			 data-calendar-dayEnd="24:00:00"
-			 data-calendar-currentDate="5/21/2014">
-			<h3 data-calender-receive="currentDate"></h3>
-			<button data-calendar-action="prev">&lt;&lt;</button><button data-calendar-action="next">&gt;&gt;</button>
+			 data-calendar-defaultDate="5/21/2014">
+			<h3 data-calender-receive="defaultDate"></h3>
+			<button data-calendar-action="prev">&lt;&lt;</button>
+			<button data-calendar-action="next">&gt;&gt;</button>
+			<button data-calendar-option="view" data-calendar-optionValue="agenda">Agenda</button>
+			<button data-calendar-option="view" data-calendar-optionValue="month">Month</button>
 			<ul data-calendar-events>
 				<li data-calendar-event-start="2014-05-21 09:00:00"
 					data-calendar-event-end="2014-05-21 10:00:00"
@@ -57,7 +57,8 @@
 					</section>
 				</li>
 				<li data-calendar-event-start="2014-05-22 12:00:00"
-					data-calendar-event-end="2014-05-23 15:00:00">
+					data-calendar-event-end="2014-05-23 15:00:00"
+					draggable="true" resizable="true">
 					<section class="panel">
 						<small data-calendar-event-receive="timeSpan"></small>
 						<a href="#">Reading from The Hobbit</a>
@@ -67,9 +68,10 @@
 			</ul>
 		</div>
 	</div>
-	<script src='../lib/moment/moment.js'></script>
-	<script src='../lib/jquery/jquery.js'></script>
-	<script src='../lib/jquery-ui/ui/jquery-ui.js'></script>
-	<script src='../build/out/html5calendar.js'></script>
+	<script src='../lib/moment.min.js'></script>
+	<script src='../lib/moment-range.js'></script>
+	<script src='../lib/jquery.min.js'></script>
+	<script src='../lib/jquery-ui.custom.min.js'></script>
+	<script src='../html5calendar/html5calendar.min.js'></script>
 </body>
 </html>
