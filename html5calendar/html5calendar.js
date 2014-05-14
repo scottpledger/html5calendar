@@ -14,10 +14,8 @@
 })(function($, moment) {
 ;;
 /**
- * @ngdoc interface
- * @name HT5CEvent
- *
- * @description An Event wrapper for HTML5Calendar
+ * An Event wrapper for HTML5Calendar
+ * @class HT5CEvent
  */
 var HT5CEvent;
 HT5CEvent = (function(undefined) {

@@ -11,15 +11,6 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "jQuery",
       "keywords": "api directive factory fn html5calendar jquery jqueryui textarea ui widget"
-    },
-    {
-      "section": "developer",
-      "id": "HT5CEvent",
-      "shortName": "HT5CEvent",
-      "type": "interface",
-      "moduleName": "HT5CEvent",
-      "shortDescription": "An Event wrapper for HTML5Calendar",
-      "keywords": "developer event ht5cevent html5calendar interface wrapper"
     }
   ],
   "apis": {
