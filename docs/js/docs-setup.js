@@ -1,6 +1,7 @@
 NG_DOCS={
   "sections": {
-    "api": "API Documentation"
+    "api": "API Documentation",
+    "developer": "Developer API Documentation"
   },
   "pages": [
     {
@@ -10,10 +11,19 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "jQuery",
       "keywords": "api directive factory fn html5calendar jquery jqueryui textarea ui widget"
+    },
+    {
+      "section": "developer",
+      "id": "HT5CEvent\n\nAn Event wrapper for HTML5Calendar",
+      "shortName": "HT5CEvent\n\nAn Event wrapper for HTML5Calendar",
+      "type": "interface",
+      "moduleName": "HT5CEvent\n\nAn Event wrapper for HTML5Calendar",
+      "keywords": "developer event ht5cevent html5calendar interface wrapper"
     }
   ],
   "apis": {
-    "api": true
+    "api": true,
+    "developer": false
   },
   "html5Mode": true,
   "startPage": "/api",
