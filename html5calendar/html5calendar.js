@@ -14,6 +14,7 @@
 })(function($, moment) {
 ;;
 /**
+ * @ngdoc class
  * @class HT5CEvent
  *
  * An Event wrapper for HTML5Calendar
@@ -293,7 +294,7 @@ HT5CEvent = (function(undefined) {
 ;;
 /**
  * @ngdoc directive
- * @name jQuery.fn.html5calendar
+ * @name jQuery.html5calendar
  * @element textarea
  * @function
  * 

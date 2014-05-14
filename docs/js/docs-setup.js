@@ -5,10 +5,10 @@ NG_DOCS={
   "pages": [
     {
       "section": "api",
-      "id": "jQuery.fn.html5calendar",
-      "shortName": "jQuery.fn.html5calendar",
+      "id": "jQuery.html5calendar",
+      "shortName": "jQuery.html5calendar",
       "type": "directive",
-      "moduleName": "jQuery.fn",
+      "moduleName": "jQuery",
       "keywords": "api directive factory fn html5calendar jquery jqueryui textarea ui widget"
     }
   ],
