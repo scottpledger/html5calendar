@@ -293,10 +293,8 @@ HT5CEvent = (function(undefined) {
 /**
  * @ngdoc function
  * @name jQuery.html5calendar
- * @element textarea
  * 
  * The HTML5Calendar widget, using the [jQuery UI Widget Factory](http: //api.jqueryui.com/jQuery.widget/)
- * @namespace jQuery.fn.html5calendar
  */
 $.widget("custom.html5calendar",$.ui.mouse,{
 	options: {
