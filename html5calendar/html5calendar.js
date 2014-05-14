@@ -17,7 +17,7 @@
  * @ngdoc interface
  * @name HT5CEvent
  *
- * An Event wrapper for HTML5Calendar
+ * @description An Event wrapper for HTML5Calendar
  */
 var HT5CEvent;
 HT5CEvent = (function(undefined) {

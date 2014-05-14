@@ -14,10 +14,11 @@ NG_DOCS={
     },
     {
       "section": "developer",
-      "id": "HT5CEvent\n\nAn Event wrapper for HTML5Calendar",
-      "shortName": "HT5CEvent\n\nAn Event wrapper for HTML5Calendar",
+      "id": "HT5CEvent",
+      "shortName": "HT5CEvent",
       "type": "interface",
-      "moduleName": "HT5CEvent\n\nAn Event wrapper for HTML5Calendar",
+      "moduleName": "HT5CEvent",
+      "shortDescription": "An Event wrapper for HTML5Calendar",
       "keywords": "developer event ht5cevent html5calendar interface wrapper"
     }
   ],
