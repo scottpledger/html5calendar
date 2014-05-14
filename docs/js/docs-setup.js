@@ -23,7 +23,7 @@ NG_DOCS={
   ],
   "apis": {
     "api": true,
-    "developer": false
+    "developer": true
   },
   "html5Mode": true,
   "startPage": "/api",
