@@ -14,12 +14,10 @@
 })(function($, moment) {
 ;;
 /**
- * @ngdoc overview
+ * @ngdoc interface
  * @name HT5CEvent
- * @scope
  * 
  * An Event wrapper for HTML5Calendar
- * @class HT5CEvent
  */
 var HT5CEvent;
 HT5CEvent = (function(undefined) {
