@@ -407,10 +407,12 @@ HT5Calendar = (function(undefined) {
 
 		dropAccept: '*',
 
-		handleWindowResize: true
+		handleWindowResize: true,
+		
+		type: 'agenda'
 	};
 
-	// Screw the globabl namespace, I'm debugging!
+	// Screw the global namespace, I'm debugging!
 	window.HT5Calendar = HT5Calendar;
 
 	return HT5Calendar;
