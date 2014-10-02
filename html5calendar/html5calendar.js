@@ -77,6 +77,51 @@ HT5Calendar = (function(undefined) {
 			self.element.html5calendar('option',$t.attr('data-calendar-option'),$t.attr('data-calendar-optionValue'));
 		});
 	}
+	
+	HT5Calendar.prototype._parseEvents = function() {
+		var self=this,
+			hourBegin = moment.duration(this.options.dayBegin),
+			hourEnd = moment.duration(this.options.dayEnd),
+			maxHeight = hourEnd.subtract(hourBegin).asHours();
+		this._hourBegin = hourBegin;
+		this._hourEnd = hourEnd;
+		this._maxHeight = maxHeight;
+		this.innerElement
+			.removeClass('days-1 days-2 days-3 days-4 days-5 days-6 days-7')
+			.addClass('days-'+this.options.daysPerWeek);
+		this.eventData.children('li').each(function(i,el) {
+			var ev = new HT5CEvent(el);
+			self._placeEvent(ev);
+		});
+	};
+	
+	HT5Calendar.prototype._placeEvent= function(ev) {
+		var $segs = ev.makeSegments('days'), self=this;
+
+		$segs.each(function(i,el) {
+			var $el = $(el), dims,top,height,cssData;
+			$el.appendTo(self._getDay($el.data('range').start));
+			dims = $el.data('dimensions');
+			top = dims.top-self._hourBegin.asHours();
+			height = dims.height;
+			if(top<0) {
+				top =0;
+				height += top;
+			}
+			height = Math.min(self._maxHeight,height);
+			cssData = {
+				top: top+'em',
+				height: height+'em'
+			};
+			$el.data('css',cssData);
+			$el.css(self.options.view=='agenda' ? cssData: {
+				top: '0em',
+				height: 'auto'
+			});
+		});
+
+		ev.redraw();
+	};
 
 	HT5Calendar.prototype.render = function() {
 
