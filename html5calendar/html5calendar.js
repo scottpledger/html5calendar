@@ -409,7 +409,7 @@ HT5Calendar = (function(undefined) {
 
 		handleWindowResize: true,
 		
-		type: 'agenda'
+		type: 'month'
 	};
 
 	// Screw the global namespace, I'm debugging!
