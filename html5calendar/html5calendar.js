@@ -59,7 +59,7 @@ HT5Calendar = (function(undefined) {
 		
 		this.render();
 
-		private._mouseInit(this);
+		//private._mouseInit(this);
 	}
 
 	var public = {
