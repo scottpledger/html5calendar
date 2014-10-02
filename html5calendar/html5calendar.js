@@ -25,7 +25,7 @@ HT5Calendar = (function(undefined) {
 
 		var self=this;
 		this.element.addClass('html5calendar');
-		this._getOptsFromElement();
+
 		this.weekOffset=0;
 		this.today = moment();
 		this.defaultDate = (this.options.date=='today' ?
