@@ -201,7 +201,7 @@ HT5Calendar = (function(undefined) {
 		_makeDay: function(t,mD) {
 			var mDay = moment(mD),
 				fullDayLabel = mDay.format('YYYYDDDD'),
-					dayLabel = dayLabel = mDay.format(t.options.columnFormat.day),
+					dayLabel = dayLabel = mDay.format(t.options.columnFormat.week),
 					day = $('<ul data-calendar-dayLabel="'+dayLabel+'" class="ht5c-events"></ul>'),
 					dayLi = $('<li class="ht5c-day year-'+mDay.format('YYYY')+' month-'+mDay.format('M')+' day-'+mDay.format('D')+'"><time>'+dayLabel+'</time></li>');
 			dayLi.append(day);
@@ -393,7 +393,7 @@ HT5Calendar = (function(undefined) {
 		columnFormat: {
 			month: 'ddd',
 			week: 'ddd M/D',
-			day: 'dddd'
+			day: 'dddd M/D'
 		},
 		timeFormat: {
 			'default': 'h:mm a'
