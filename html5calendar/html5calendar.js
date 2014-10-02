@@ -409,7 +409,9 @@ HT5Calendar = (function(undefined) {
 
 		handleWindowResize: true,
 		
-		type: 'month'
+		type: 'month',
+		
+		daysPerWeek: 7
 	};
 
 	// Screw the global namespace, I'm debugging!
