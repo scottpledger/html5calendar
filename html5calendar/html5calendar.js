@@ -66,9 +66,9 @@ HT5Calendar = (function(undefined) {
 		private._initButtons(this);
 		private._parseEvents(this);
 		this.innerElement.removeClass('agenda basic month')
-			.addClass(this.options.type);
+			.addClass(this.options.view);
 		this.element.removeClass('ht5c-agenda ht5c-basic ht5c-month')
-				.addClass('ht5c-'+this.options.type);
+				.addClass('ht5c-'+this.options.view);
 		
 		this.render();
 
