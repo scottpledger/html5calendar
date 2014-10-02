@@ -16,6 +16,17 @@
 var HT5Calendar;
 HT5Calendar = (function(undefined) {
 	
+	function _getOptsFromElement($el) {
+		var val,opts = {};
+		for(var opt in HT5Calendar.defaultOptions) {
+			val = $el.attr('data-calendar-'+opt.toLowerCase());
+			if(val!==undefined) {
+				opts[opt] = val;
+			}
+		}
+		return opts;
+	}
+	
 	function momentizeOpt(val) {
 		return val=='today' ? moment(): moment(val);
 	}
@@ -25,7 +36,7 @@ HT5Calendar = (function(undefined) {
 		this.options = $.extend(true,{},
 			HT5Calendar.defaultOptions,
 			options,
-			HT5Calendar._getOptsFromElement(this.element));
+			_getOptsFromElement(this.element));
 
 		var self=this;
 		this.element.addClass('html5calendar');
@@ -351,22 +362,7 @@ HT5Calendar = (function(undefined) {
 		}
 	};
 	
-	
-	
-	
 	$.extend(HT5Calendar.prototype,public);
-	
-
-	HT5Calendar._getOptsFromElement = function($el) {
-		var val,opts = {};
-		for(var opt in HT5Calendar.defaultOptions) {
-			val = $el.attr('data-calendar-'+opt.toLowerCase());
-			if(val!==undefined) {
-				opts[opt] = val;
-			}
-		}
-		return opts;
-	};
 
 	HT5Calendar.defaultOptions = {
 		defaultTimedEventDuration: '02:00:00',
@@ -414,7 +410,8 @@ HT5Calendar = (function(undefined) {
 		handleWindowResize: true
 	};
 
-	
+	// Screw the globabl namespace, I'm debugging!
+	window.HT5Calendar = HT5Calendar;
 
 	return HT5Calendar;
 })();
