@@ -93,11 +93,11 @@ HT5Calendar = (function(undefined) {
 	var private = {
 		_initButtons: function(t) {
 			var self = t;
-			this.element.find('[data-calendar-action]').on('click',function() {
+			t.element.find('[data-calendar-action]').on('click',function() {
 				var $t=$(this);
 				self.element.html5calendar($t.attr('data-calendar-action'));
 			});
-			this.element.find('[data-calendar-option]').on('click',function() {
+			t.element.find('[data-calendar-option]').on('click',function() {
 				var $t=$(this);
 				self.element.html5calendar('option',$t.attr('data-calendar-option'),$t.attr('data-calendar-optionValue'));
 			});
