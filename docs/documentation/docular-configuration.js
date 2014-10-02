@@ -1,1 +1,0 @@
-baseURL = 'documentation'; addTag('base', {href: 'documentation'});  window.discussionConfigs = {active:false, shortName:'false', url:'false', dev:false}; 
