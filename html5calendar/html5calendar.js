@@ -201,7 +201,7 @@ HT5Calendar = (function(undefined) {
 		_makeDay: function(t,mD) {
 			var mDay = moment(mD),
 				fullDayLabel = mDay.format('YYYYDDDD'),
-					dayLabel = dayLabel = mDay.format(t.options.dayLabelFormat),
+					dayLabel = dayLabel = mDay.format(t.options.columnFormat.day),
 					day = $('<ul data-calendar-dayLabel="'+dayLabel+'" class="ht5c-events"></ul>'),
 					dayLi = $('<li class="ht5c-day year-'+mDay.format('YYYY')+' month-'+mDay.format('M')+' day-'+mDay.format('D')+'"><time>'+dayLabel+'</time></li>');
 			dayLi.append(day);
@@ -239,7 +239,7 @@ HT5Calendar = (function(undefined) {
 
 			while(t0.isBefore(tM) && n<100) {
 				var $li=$('<li class="ht5c-hour"></li>'),
-						label='<time>'+t0.format(t.options.rowLabelFormat)+'</time>';
+						label='<time>'+t0.format(t.options.timeFormat.default)+'</time>';
 				if(label!=prev) {
 					$li.append(label);
 				}
