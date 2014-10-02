@@ -15,6 +15,10 @@
 ;;
 var HT5Calendar;
 HT5Calendar = (function(undefined) {
+	
+	function momentizeOpt(val) {
+		return val=='today' ? moment(): moment(val);
+	}
 
 	function HT5Calendar(element, options) {
 		this.element = $(element);
@@ -27,10 +31,8 @@ HT5Calendar = (function(undefined) {
 		this.element.addClass('html5calendar');
 
 		this.weekOffset=0;
-		this.today = moment();
-		this.defaultDate = (this.options.date=='today' ?
-		                        moment():
-		                        moment(this.options.defaultDate));
+		this.today = momentizeOpt(this.options.now);
+		this.defaultDate = momentizeOpt(this.options.defaultDate);
 		this.innerElement = this.element.find('.ht5c-inner');
 		if(this.innerElement.length===0) {
 			this.innerElement = $('<div class="ht5c-inner"></div>');
@@ -213,7 +215,7 @@ HT5Calendar = (function(undefined) {
 				}
 			}
 
-			return dayLi;
+			return t.days[fullDayLabel];
 		},
 		_layoutHourRows: function(t) {
 			var t0 = moment(t.today).startOf('day').add(moment.duration(t.options.dayBegin)),
