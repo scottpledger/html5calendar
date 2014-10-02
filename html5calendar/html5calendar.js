@@ -213,7 +213,7 @@ HT5Calendar = (function(undefined) {
 				}
 			}
 
-			return day;
+			return dayLi;
 		},
 		_layoutHourRows: function(t) {
 			var t0 = moment(t.today).startOf('day').add(moment.duration(t.options.dayBegin)),
