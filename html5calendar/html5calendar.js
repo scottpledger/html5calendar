@@ -123,7 +123,7 @@ HT5Calendar = (function(undefined) {
 
 			$segs.each(function(i,el) {
 				var $el = $(el), dims,top,height,cssData;
-				$el.appendTo(self._getDay($el.data('range').start));
+				$el.appendTo(private._getDay(self,$el.data('range').start));
 				dims = $el.data('dimensions');
 				top = dims.top-self._hourBegin.asHours();
 				height = dims.height;
