@@ -115,7 +115,7 @@ HT5Calendar = (function(undefined) {
 				.addClass('days-'+t.options.daysPerWeek);
 			t.eventData.children('li').each(function(i,el) {
 				var ev = new HT5CEvent(el);
-				self._placeEvent(ev);
+				private._placeEvent(self,ev);
 			});
 		},
 		_placeEvent: function(t,ev) {
