@@ -430,7 +430,17 @@ HT5CEvent = (function(undefined) {
  * The HTML5Calendar widget, using the [jQuery UI Widget Factory](http: //api.jqueryui.com/jQuery.widget/)
  */
 $.fn.html5calendar= function() {
-	console.log(this);
+	var opts=arguments[0];
+	if(this.length==1){
+		if(!this.data('html5calendar')){
+			this.data('html5calendar',new HT5Calendar(this,opts));
+		}
+		return this.data('html5calendar');
+	} else {
+		this.each(function(i,el) {
+			$(this).html5calendar(opts);
+		})
+	}
 }
 
 $('[data-calendar="html5"]').html5calendar();
